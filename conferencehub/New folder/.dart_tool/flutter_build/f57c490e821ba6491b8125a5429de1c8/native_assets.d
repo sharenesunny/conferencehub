@@ -1,1 +1,0 @@
- C:\\Users\\Kemar\\Documents\\GitHub\\conferencehub\\conferencehub\\conferencehub\\.dart_tool\\flutter_build\\f57c490e821ba6491b8125a5429de1c8\\native_assets.yaml: 
