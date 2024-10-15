@@ -151,7 +151,7 @@ class _RewardsRanksWidgetState extends State<RewardsRanksWidget> {
                   StreamBuilder<List<UsersRecord>>(
                     stream: queryUsersRecord(
                       queryBuilder: (usersRecord) =>
-                          usersRecord.orderBy('rewardPoints'),
+                          usersRecord.orderBy('rewardPoints', descending: true),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.

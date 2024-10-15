@@ -55,6 +55,16 @@ class UsersRecord extends FirestoreRecord {
   int get rewardPoints => _rewardPoints ?? 0;
   bool hasRewardPoints() => _rewardPoints != null;
 
+  // "job" field.
+  String? _job;
+  String get job => _job ?? '';
+  bool hasJob() => _job != null;
+
+  // "title" field.
+  String? _title;
+  String get title => _title ?? '';
+  bool hasTitle() => _title != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -64,6 +74,8 @@ class UsersRecord extends FirestoreRecord {
     _phoneNumber = snapshotData['phone_number'] as String?;
     _connectCode = snapshotData['connectCode'] as String?;
     _rewardPoints = castToType<int>(snapshotData['rewardPoints']);
+    _job = snapshotData['job'] as String?;
+    _title = snapshotData['title'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -108,6 +120,8 @@ Map<String, dynamic> createUsersRecordData({
   String? phoneNumber,
   String? connectCode,
   int? rewardPoints,
+  String? job,
+  String? title,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -119,6 +133,8 @@ Map<String, dynamic> createUsersRecordData({
       'phone_number': phoneNumber,
       'connectCode': connectCode,
       'rewardPoints': rewardPoints,
+      'job': job,
+      'title': title,
     }.withoutNulls,
   );
 
@@ -137,7 +153,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.connectCode == e2?.connectCode &&
-        e1?.rewardPoints == e2?.rewardPoints;
+        e1?.rewardPoints == e2?.rewardPoints &&
+        e1?.job == e2?.job &&
+        e1?.title == e2?.title;
   }
 
   @override
@@ -149,7 +167,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.createdTime,
         e?.phoneNumber,
         e?.connectCode,
-        e?.rewardPoints
+        e?.rewardPoints,
+        e?.job,
+        e?.title
       ]);
 
   @override

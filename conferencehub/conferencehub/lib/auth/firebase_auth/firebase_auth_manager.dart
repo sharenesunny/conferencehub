@@ -287,8 +287,7 @@ class FirebaseAuthManager extends AuthManager
       }
       return userCredential == null
           ? null
-          : TheComplianceUnitOfTheAntiMoneyLaunderingAuthorityRegionalConferenceFirebaseUser
-              .fromUserCredential(userCredential);
+          : ConferenceHubCURC24FirebaseUser.fromUserCredential(userCredential);
     } on FirebaseAuthException catch (e) {
       final errorMsg = switch (e.code) {
         'email-already-in-use' =>

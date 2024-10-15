@@ -117,11 +117,12 @@ class _EditNoteWidgetState extends State<EditNoteWidget> {
                                     borderRadius: 8.0,
                                     borderWidth: 2.0,
                                     buttonSize: 40.0,
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).tertiary,
                                     icon: Icon(
-                                      Icons.cancel_rounded,
-                                      color: FlutterFlowTheme.of(context).error,
+                                      Icons.arrow_back,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
                                       size: 24.0,
                                     ),
                                     onPressed: () async {
@@ -160,7 +161,7 @@ class _EditNoteWidgetState extends State<EditNoteWidget> {
                                                 ) ??
                                                 false;
                                         if (confirmDialogResponse) {
-                                          context.goNamed('notes');
+                                          context.safePop();
                                         } else {
                                           return;
                                         }

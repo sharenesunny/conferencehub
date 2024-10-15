@@ -1,4 +1,4 @@
-name: the_compliance_unit_of_the_anti_money_laundering_authority_regional_conference
+name: conference_hub_c_u_r_c24
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -77,6 +77,8 @@ dependencies:
   plugin_platform_interface: 2.1.8
   provider: 6.1.2
   rxdart: 0.27.7
+  sensors_plus: 1.4.1
+  shake: 2.2.0
   shared_preferences: 2.2.2
   shared_preferences_android: 2.2.1
   shared_preferences_foundation: 2.3.4

@@ -273,6 +273,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               collectionNamePath: ['users'],
             ),
           ),
+        ),
+        FFRoute(
+          name: 'editProfile',
+          path: '/editProfile',
+          builder: (context, params) => const EditProfileWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

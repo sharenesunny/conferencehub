@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'menu_model.dart';
 export 'menu_model.dart';
 
@@ -65,7 +66,7 @@ class _MenuWidgetState extends State<MenuWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 0.0, 20.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -290,7 +291,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Icon(
-                                      Icons.calendar_today,
+                                      Icons.people_alt_rounded,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
                                       size: 24.0,
@@ -354,11 +355,11 @@ class _MenuWidgetState extends State<MenuWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Icon(
-                                      Icons.calendar_today,
+                                    FaIcon(
+                                      FontAwesomeIcons.solidStickyNote,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
-                                      size: 24.0,
+                                      size: 20.0,
                                     ),
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
@@ -420,7 +421,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Icon(
-                                      Icons.calendar_today,
+                                      Icons.map_rounded,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
                                       size: 24.0,
@@ -485,7 +486,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Icon(
-                                      Icons.calendar_today,
+                                      Icons.connect_without_contact_rounded,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
                                       size: 24.0,
@@ -549,11 +550,11 @@ class _MenuWidgetState extends State<MenuWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Icon(
-                                      Icons.calendar_today,
+                                    FaIcon(
+                                      FontAwesomeIcons.trophy,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
-                                      size: 24.0,
+                                      size: 20.0,
                                     ),
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
@@ -577,13 +578,78 @@ class _MenuWidgetState extends State<MenuWidget> {
                               ),
                             ),
                           ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.goNamed(
+                                'profile',
+                                extra: <String, dynamic>{
+                                  kTransitionInfoKey: const TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType:
+                                        PageTransitionType.rightToLeft,
+                                    duration: Duration(milliseconds: 300),
+                                  ),
+                                },
+                              );
+                            },
+                            child: Container(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              height: 70.0,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF072489),
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 0.0, 20.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Icons.person_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 24.0,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          20.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        'Profile',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              fontSize: 18.0,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ].divide(const SizedBox(height: 10.0)),
                       ),
                     ),
                   ),
                 ),
               ),
-            ].divide(const SizedBox(height: 20.0)),
+            ].divide(const SizedBox(height: 20.0)).addToStart(const SizedBox(height: 25.0)),
           ),
         ),
       ),

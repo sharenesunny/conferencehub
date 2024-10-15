@@ -1,4 +1,4 @@
-# The Compliance Unit of the Anti-Money Laundering Authority Regional Conference
+# Conference Hub CURC24
 
 A new Flutter project.
 

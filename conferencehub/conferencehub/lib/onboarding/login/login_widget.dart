@@ -347,7 +347,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   }
 
                                   context.goNamedAuth(
-                                    'onboarding',
+                                    'homePage',
                                     context.mounted,
                                     extra: <String, dynamic>{
                                       kTransitionInfoKey: const TransitionInfo(

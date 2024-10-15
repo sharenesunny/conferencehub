@@ -92,11 +92,12 @@ class _AddNoteWidgetState extends State<AddNoteWidget> {
                                 borderRadius: 8.0,
                                 borderWidth: 2.0,
                                 buttonSize: 40.0,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                fillColor:
+                                    FlutterFlowTheme.of(context).tertiary,
                                 icon: Icon(
                                   Icons.cancel_rounded,
-                                  color: FlutterFlowTheme.of(context).error,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
                                   size: 24.0,
                                 ),
                                 onPressed: () async {
@@ -159,54 +160,87 @@ class _AddNoteWidgetState extends State<AddNoteWidget> {
                                       size: 24.0,
                                     ),
                                     onPressed: () async {
-                                      await NotesRecord.collection
-                                          .doc()
-                                          .set(createNotesRecordData(
-                                            noteTitle:
-                                                _model.textController1.text,
-                                            noteContent:
-                                                _model.textController2.text,
-                                            noteID: random_data.randomString(
-                                              5,
-                                              12,
-                                              true,
-                                              true,
-                                              true,
+                                      if ((_model.textController1.text !=
+                                                  '') ||
+                                          (_model.textController2.text !=
+                                                  '')) {
+                                        await Future.wait([
+                                          Future(() async {
+                                            await NotesRecord.collection
+                                                .doc()
+                                                .set(createNotesRecordData(
+                                                  noteTitle: _model
+                                                      .textController1.text,
+                                                  noteContent: _model
+                                                      .textController2.text,
+                                                  noteID:
+                                                      random_data.randomString(
+                                                    5,
+                                                    12,
+                                                    true,
+                                                    true,
+                                                    true,
+                                                  ),
+                                                  creationDate:
+                                                      getCurrentTimestamp,
+                                                  wasUpdated: false,
+                                                  uID: currentUserUid,
+                                                ));
+                                          }),
+                                          Future(() async {
+                                            await currentUserReference!.update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'rewardPoints':
+                                                      FieldValue.increment(5),
+                                                },
+                                              ),
+                                            });
+                                          }),
+                                        ]);
+                                        ScaffoldMessenger.of(context)
+                                            .clearSnackBars();
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Note Created!',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
                                             ),
-                                            creationDate: getCurrentTimestamp,
-                                            wasUpdated: false,
-                                            uID: currentUserUid,
-                                          ));
-
-                                      await currentUserReference!.update({
-                                        ...mapToFirestore(
-                                          {
-                                            'rewardPoints':
-                                                FieldValue.increment(5),
-                                          },
-                                        ),
-                                      });
-                                      ScaffoldMessenger.of(context)
-                                          .clearSnackBars();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Note Created!',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
                                           ),
-                                          duration:
-                                              const Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                      context.safePop();
+                                        );
+                                        context.safePop();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .clearSnackBars();
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Note is empty, add contents to the note and try saving again!',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                      }
                                     },
                                   ),
                                 ].divide(const SizedBox(width: 10.0)),

@@ -58,7 +58,7 @@ class ScheduleRecord extends FirestoreRecord {
   // "description" field.
   String? _description;
   String get description => _description ?? '';
-  bool hasDescription() => _description != null;
+  bool hasDescriptionField() => _description != null;
 
   // "downloadLink" field.
   String? _downloadLink;
@@ -130,6 +130,31 @@ class ScheduleRecord extends FirestoreRecord {
   int get capacity => _capacity ?? 0;
   bool hasCapacity() => _capacity != null;
 
+  // "rewardID" field.
+  String? _rewardID;
+  String get rewardID => _rewardID ?? '';
+  bool hasRewardID() => _rewardID != null;
+
+  // "isProgram" field.
+  bool? _isProgram;
+  bool get isProgram => _isProgram ?? false;
+  bool hasIsProgram() => _isProgram != null;
+
+  // "solo" field.
+  bool? _solo;
+  bool get solo => _solo ?? false;
+  bool hasSolo() => _solo != null;
+
+  // "hasDescription" field.
+  bool? _hasDescription;
+  bool get hasDescription => _hasDescription ?? false;
+  bool hasHasDescription() => _hasDescription != null;
+
+  // "registered" field.
+  List<String>? _registered;
+  List<String> get registered => _registered ?? const [];
+  bool hasRegistered() => _registered != null;
+
   void _initializeFields() {
     _date = snapshotData['date'] as DateTime?;
     _stage = snapshotData['stage'] as String?;
@@ -157,6 +182,11 @@ class ScheduleRecord extends FirestoreRecord {
     _hasDownloadable = snapshotData['hasDownloadable'] as bool?;
     _downloadable = snapshotData['downloadable'] as String?;
     _capacity = castToType<int>(snapshotData['capacity']);
+    _rewardID = snapshotData['rewardID'] as String?;
+    _isProgram = snapshotData['isProgram'] as bool?;
+    _solo = snapshotData['solo'] as bool?;
+    _hasDescription = snapshotData['hasDescription'] as bool?;
+    _registered = getDataList(snapshotData['registered']);
   }
 
   static CollectionReference get collection =>
@@ -215,6 +245,10 @@ Map<String, dynamic> createScheduleRecordData({
   bool? hasDownloadable,
   String? downloadable,
   int? capacity,
+  String? rewardID,
+  bool? isProgram,
+  bool? solo,
+  bool? hasDescription,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -239,6 +273,10 @@ Map<String, dynamic> createScheduleRecordData({
       'hasDownloadable': hasDownloadable,
       'downloadable': downloadable,
       'capacity': capacity,
+      'rewardID': rewardID,
+      'isProgram': isProgram,
+      'solo': solo,
+      'hasDescription': hasDescription,
     }.withoutNulls,
   );
 
@@ -273,7 +311,12 @@ class ScheduleRecordDocumentEquality implements Equality<ScheduleRecord> {
         e1?.thumbURL == e2?.thumbURL &&
         e1?.hasDownloadable == e2?.hasDownloadable &&
         e1?.downloadable == e2?.downloadable &&
-        e1?.capacity == e2?.capacity;
+        e1?.capacity == e2?.capacity &&
+        e1?.rewardID == e2?.rewardID &&
+        e1?.isProgram == e2?.isProgram &&
+        e1?.solo == e2?.solo &&
+        e1?.hasDescription == e2?.hasDescription &&
+        listEquality.equals(e1?.registered, e2?.registered);
   }
 
   @override
@@ -300,7 +343,12 @@ class ScheduleRecordDocumentEquality implements Equality<ScheduleRecord> {
         e?.thumbURL,
         e?.hasDownloadable,
         e?.downloadable,
-        e?.capacity
+        e?.capacity,
+        e?.rewardID,
+        e?.isProgram,
+        e?.solo,
+        e?.hasDescription,
+        e?.registered
       ]);
 
   @override

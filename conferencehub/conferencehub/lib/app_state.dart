@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -32,11 +31,7 @@ class FFAppState extends ChangeNotifier {
           prefs.getStringList('ff_rewardCollected') ?? _rewardCollected;
     });
     _safeInit(() {
-      _mySchedule = prefs
-              .getStringList('ff_mySchedule')
-              ?.map((path) => path.ref)
-              .toList() ??
-          _mySchedule;
+      _mySchedule = prefs.getStringList('ff_mySchedule') ?? _mySchedule;
     });
   }
 
@@ -158,44 +153,39 @@ class FFAppState extends ChangeNotifier {
     prefs.setStringList('ff_rewardCollected', _rewardCollected);
   }
 
-  List<DocumentReference> _mySchedule = [];
-  List<DocumentReference> get mySchedule => _mySchedule;
-  set mySchedule(List<DocumentReference> value) {
+  List<String> _mySchedule = [];
+  List<String> get mySchedule => _mySchedule;
+  set mySchedule(List<String> value) {
     _mySchedule = value;
-    prefs.setStringList('ff_mySchedule', value.map((x) => x.path).toList());
+    prefs.setStringList('ff_mySchedule', value);
   }
 
-  void addToMySchedule(DocumentReference value) {
+  void addToMySchedule(String value) {
     mySchedule.add(value);
-    prefs.setStringList(
-        'ff_mySchedule', _mySchedule.map((x) => x.path).toList());
+    prefs.setStringList('ff_mySchedule', _mySchedule);
   }
 
-  void removeFromMySchedule(DocumentReference value) {
+  void removeFromMySchedule(String value) {
     mySchedule.remove(value);
-    prefs.setStringList(
-        'ff_mySchedule', _mySchedule.map((x) => x.path).toList());
+    prefs.setStringList('ff_mySchedule', _mySchedule);
   }
 
   void removeAtIndexFromMySchedule(int index) {
     mySchedule.removeAt(index);
-    prefs.setStringList(
-        'ff_mySchedule', _mySchedule.map((x) => x.path).toList());
+    prefs.setStringList('ff_mySchedule', _mySchedule);
   }
 
   void updateMyScheduleAtIndex(
     int index,
-    DocumentReference Function(DocumentReference) updateFn,
+    String Function(String) updateFn,
   ) {
     mySchedule[index] = updateFn(_mySchedule[index]);
-    prefs.setStringList(
-        'ff_mySchedule', _mySchedule.map((x) => x.path).toList());
+    prefs.setStringList('ff_mySchedule', _mySchedule);
   }
 
-  void insertAtIndexInMySchedule(int index, DocumentReference value) {
+  void insertAtIndexInMySchedule(int index, String value) {
     mySchedule.insert(index, value);
-    prefs.setStringList(
-        'ff_mySchedule', _mySchedule.map((x) => x.path).toList());
+    prefs.setStringList('ff_mySchedule', _mySchedule);
   }
 }
 

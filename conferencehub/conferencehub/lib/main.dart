@@ -55,11 +55,10 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
-    userStream =
-        theComplianceUnitOfTheAntiMoneyLaunderingAuthorityRegionalConferenceFirebaseUserStream()
-          ..listen((user) {
-            _appStateNotifier.update(user);
-          });
+    userStream = conferenceHubCURC24FirebaseUserStream()
+      ..listen((user) {
+        _appStateNotifier.update(user);
+      });
     jwtTokenStream.listen((_) {});
     Future.delayed(
       const Duration(milliseconds: 1000),
@@ -85,8 +84,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title:
-          'The Compliance Unit of the Anti-Money Laundering Authority Regional Conference',
+      title: 'Conference Hub CURC24',
       localizationsDelegates: const [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,

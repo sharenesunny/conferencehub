@@ -7,9 +7,11 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import 'package:aligned_tooltip/aligned_tooltip.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -93,7 +95,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         drawer: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 1.0,
+          width: MediaQuery.sizeOf(context).width * 0.85,
           child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
@@ -313,39 +315,6 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                 ],
                                               ),
                                             ),
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('profile');
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24.0),
-                                                  border: Border.all(
-                                                    color: const Color(0x40FFFFFF),
-                                                    width: 2.0,
-                                                  ),
-                                                ),
-                                                child: Container(
-                                                  width: 40.0,
-                                                  height: 40.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.asset(
-                                                    'assets/images/Artboard_115.png',
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
                                           ].divide(const SizedBox(width: 15.0)),
                                         ),
                                       ),
@@ -360,21 +329,24 @@ class _ProfileWidgetState extends State<ProfileWidget>
                       Stack(
                         alignment: const AlignmentDirectional(1.0, -1.0),
                         children: [
-                          Container(
-                            width: 150.0,
-                            height: 150.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).tertiary,
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: Image.asset(
-                                  'assets/images/Richard-Strike-2.png',
-                                ).image,
-                              ),
-                              borderRadius: BorderRadius.circular(2000.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                width: 2.0,
+                          AuthUserStreamWidget(
+                            builder: (context) => Container(
+                              width: 150.0,
+                              height: 150.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).tertiary,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                    currentUserPhoto,
+                                  ),
+                                ),
+                                borderRadius: BorderRadius.circular(2000.0),
+                                border: Border.all(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  width: 2.0,
+                                ),
                               ),
                             ),
                           ),
@@ -546,15 +518,60 @@ class _ProfileWidgetState extends State<ProfileWidget>
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Profile Card',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Poppins',
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 20.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Profile Card',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                    Text(
+                                      'You can edit  your information',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .accent2,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.normal,
+                                            lineHeight: 1.0,
+                                          ),
+                                    ),
+                                  ],
                                 ),
+                                FlutterFlowIconButton(
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  borderRadius: 8.0,
+                                  borderWidth: 2.0,
+                                  buttonSize: 40.0,
+                                  icon: Icon(
+                                    Icons.edit_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 24.0,
+                                  ),
+                                  onPressed: () async {
+                                    context.pushNamed('editProfile');
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                           AuthUserStreamWidget(
                             builder: (context) => SizedBox(
@@ -563,6 +580,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 controller: _model.textController1,
                                 focusNode: _model.textFieldFocusNode1,
                                 autofocus: false,
+                                readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   isDense: true,
@@ -589,8 +607,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -632,6 +651,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               controller: _model.textController2,
                               focusNode: _model.textFieldFocusNode2,
                               autofocus: false,
+                              readOnly: true,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -658,8 +678,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0x00000000),
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -700,6 +721,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               controller: _model.textController3,
                               focusNode: _model.textFieldFocusNode3,
                               autofocus: false,
+                              readOnly: true,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -726,8 +748,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0x00000000),
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -768,6 +791,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               controller: _model.textController4,
                               focusNode: _model.textFieldFocusNode4,
                               autofocus: false,
+                              readOnly: true,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -794,8 +818,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0x00000000),
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -837,6 +862,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 controller: _model.textController5,
                                 focusNode: _model.textFieldFocusNode5,
                                 autofocus: false,
+                                readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   isDense: true,
@@ -863,8 +889,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -906,6 +933,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               controller: _model.textController6,
                               focusNode: _model.textFieldFocusNode6,
                               autofocus: false,
+                              readOnly: true,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -932,8 +960,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0x00000000),
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -976,6 +1005,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               controller: _model.textController7,
                               focusNode: _model.textFieldFocusNode7,
                               autofocus: false,
+                              readOnly: true,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -1001,8 +1031,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0x00000000),
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -1081,6 +1112,37 @@ class _ProfileWidgetState extends State<ProfileWidget>
                   Container(
                     width: MediaQuery.sizeOf(context).width * 0.95,
                     decoration: const BoxDecoration(),
+                  ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      GoRouter.of(context).prepareAuthEvent();
+                      await authManager.signOut();
+                      GoRouter.of(context).clearRedirectLocation();
+
+                      context.goNamedAuth('login', context.mounted);
+                    },
+                    text: 'Logout',
+                    options: FFButtonOptions(
+                      width: MediaQuery.sizeOf(context).width * 0.95,
+                      height: 55.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Poppins',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
                 ]
                     .divide(const SizedBox(height: 10.0))

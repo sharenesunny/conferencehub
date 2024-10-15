@@ -2,7 +2,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'view_note_model.dart';
@@ -108,54 +107,23 @@ class _ViewNoteWidgetState extends State<ViewNoteWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
+                                  FlutterFlowIconButton(
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderRadius: 8.0,
+                                    borderWidth: 2.0,
+                                    buttonSize: 40.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    icon: Icon(
+                                      Icons.arrow_back,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 24.0,
+                                    ),
+                                    onPressed: () async {
                                       context.safePop();
                                     },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(0.0),
-                                      child: BackdropFilter(
-                                        filter: ImageFilter.blur(
-                                          sigmaX: 7.0,
-                                          sigmaY: 2.0,
-                                        ),
-                                        child: AnimatedContainer(
-                                          duration: const Duration(milliseconds: 200),
-                                          curve: Curves.easeInOut,
-                                          height: 40.0,
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xA7E9E9E9),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                            border: Border.all(
-                                              color: const Color(0xB3E9E9E9),
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 0.0, 8.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Icon(
-                                                  Icons.arrow_back_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 24.0,
-                                                ),
-                                              ].divide(const SizedBox(width: 4.0)),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
                                   ),
                                   Row(
                                     mainAxisSize: MainAxisSize.max,

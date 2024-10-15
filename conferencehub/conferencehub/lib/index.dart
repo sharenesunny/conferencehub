@@ -2,7 +2,7 @@
 export '/onboarding/login/login_widget.dart' show LoginWidget;
 export '/onboarding/forget_password/forget_password_widget.dart'
     show ForgetPasswordWidget;
-export '/onboarding/onboarding/onboarding_widget.dart' show OnboardingWidget;
+export '/expages/onboarding/onboarding_widget.dart' show OnboardingWidget;
 export '/pages/con_quizzes/con_quizzes_widget.dart' show ConQuizzesWidget;
 export '/schedule_presentation/schedule/schedule_widget.dart'
     show ScheduleWidget;
@@ -33,3 +33,4 @@ export '/speakers/speaker_info_active/speaker_info_active_widget.dart'
 export '/pages/connect_list/connect_list_widget.dart' show ConnectListWidget;
 export '/settings/connect_person/connect_person_widget.dart'
     show ConnectPersonWidget;
+export '/settings/edit_profile/edit_profile_widget.dart' show EditProfileWidget;

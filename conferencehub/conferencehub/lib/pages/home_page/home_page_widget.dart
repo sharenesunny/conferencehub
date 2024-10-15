@@ -73,7 +73,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         drawer: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 1.0,
+          width: MediaQuery.sizeOf(context).width * 0.85,
           child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
@@ -312,16 +312,25 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     width: 2.0,
                                                   ),
                                                 ),
-                                                child: Container(
-                                                  width: 40.0,
-                                                  height: 40.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.asset(
-                                                    'assets/images/Artboard_115.png',
-                                                    fit: BoxFit.cover,
+                                                child: AuthUserStreamWidget(
+                                                  builder: (context) =>
+                                                      Container(
+                                                    width: 40.0,
+                                                    height: 40.0,
+                                                    clipBehavior:
+                                                        Clip.antiAlias,
+                                                    decoration: const BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: CachedNetworkImage(
+                                                      fadeInDuration: const Duration(
+                                                          milliseconds: 500),
+                                                      fadeOutDuration: const Duration(
+                                                          milliseconds: 500),
+                                                      imageUrl:
+                                                          currentUserPhoto,
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -543,7 +552,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 'date',
                                 isGreaterThanOrEqualTo: getCurrentTimestamp,
                               ),
-                              limit: 3,
+                              limit: 5,
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -599,148 +608,108 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          context.pushNamed('presentationInfo');
+                                          if (containerScheduleRecord
+                                                  .isProgram ==
+                                              false) {
+                                            if (containerScheduleRecord
+                                                    .active ==
+                                                true) {
+                                              context.pushNamed(
+                                                'presentationActive',
+                                                queryParameters: {
+                                                  'activeChat': serializeParam(
+                                                    containerScheduleRecord
+                                                        .reference,
+                                                    ParamType.DocumentReference,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            } else {
+                                              context.pushNamed(
+                                                'presentationInfo',
+                                                queryParameters: {
+                                                  'activeInfo': serializeParam(
+                                                    containerScheduleRecord
+                                                        .reference,
+                                                    ParamType.DocumentReference,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            }
+                                          } else {
+                                            return;
+                                          }
                                         },
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   1.0,
+                                          constraints: const BoxConstraints(
+                                            minHeight: 50.0,
+                                          ),
                                           decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
+                                            color: () {
+                                              if (containerScheduleRecord
+                                                  .active) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .alternate;
+                                              } else if (containerScheduleRecord
+                                                  .isComplete) {
+                                                return Colors.transparent;
+                                              } else {
+                                                return Colors.transparent;
+                                              }
+                                            }(),
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Divider(
-                                                height: 2.0,
-                                                thickness: 2.0,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
+                                            border: Border.all(
+                                              color: valueOrDefault<Color>(
+                                                containerScheduleRecord
+                                                        .isComplete
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .accent2
+                                                    : FlutterFlowTheme.of(
+                                                            context)
                                                         .primaryText,
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
                                               ),
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  if (containerScheduleRecord
-                                                          .active ==
-                                                      true) {
-                                                    context.pushNamed(
-                                                      'presentationActive',
-                                                      queryParameters: {
-                                                        'activeChat':
-                                                            serializeParam(
-                                                          containerScheduleRecord
-                                                              .reference,
-                                                          ParamType
-                                                              .DocumentReference,
-                                                        ),
-                                                      }.withoutNulls,
-                                                    );
-                                                  } else {
-                                                    context.pushNamed(
-                                                      'presentationInfo',
-                                                      queryParameters: {
-                                                        'activeInfo':
-                                                            serializeParam(
-                                                          containerScheduleRecord
-                                                              .reference,
-                                                          ParamType
-                                                              .DocumentReference,
-                                                        ),
-                                                      }.withoutNulls,
-                                                    );
-                                                  }
-                                                },
-                                                child: Container(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
+                                              width: 2.0,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
                                                               .width *
-                                                          0.847,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding: const EdgeInsets.all(
-                                                            10.0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  dateTimeFormat(
-                                                                    "MMMEd",
-                                                                    containerScheduleRecord
-                                                                        .date!,
-                                                                    locale: FFLocalizations.of(
-                                                                            context)
-                                                                        .languageCode,
-                                                                  ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        fontSize:
-                                                                            12.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                      ),
-                                                                ),
-                                                                Text(
-                                                                  dateTimeFormat(
-                                                                    "jm",
-                                                                    containerScheduleRecord
-                                                                        .time!,
-                                                                    locale: FFLocalizations.of(
-                                                                            context)
-                                                                        .languageCode,
-                                                                  ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        fontSize:
-                                                                            20.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                          0.6,
+                                                      decoration:
+                                                          const BoxDecoration(),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          if (containerScheduleRecord
+                                                                  .isProgram ==
+                                                              false)
                                                             Text(
                                                               containerScheduleRecord
                                                                   .type,
@@ -750,53 +719,119 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   .override(
                                                                     fontFamily:
                                                                         'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .accent2,
+                                                                    color: () {
+                                                                      if (containerScheduleRecord
+                                                                          .active) {
+                                                                        return FlutterFlowTheme.of(context)
+                                                                            .accent3;
+                                                                      } else if (containerScheduleRecord
+                                                                          .isComplete) {
+                                                                        return FlutterFlowTheme.of(context)
+                                                                            .accent2;
+                                                                      } else {
+                                                                        return FlutterFlowTheme.of(context)
+                                                                            .alternate;
+                                                                      }
+                                                                    }(),
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    lineHeight:
+                                                                        1.0,
                                                                   ),
                                                             ),
-                                                            Container(
-                                                              width: MediaQuery
-                                                                          .sizeOf(
+                                                          Text(
+                                                            containerScheduleRecord
+                                                                .name,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: () {
+                                                                    if (containerScheduleRecord
+                                                                        .isComplete) {
+                                                                      return FlutterFlowTheme.of(
                                                                               context)
-                                                                      .width *
-                                                                  0.791,
-                                                              decoration:
-                                                                  const BoxDecoration(),
-                                                              child: Text(
-                                                                containerScheduleRecord
-                                                                    .name,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FlutterFlowTheme.of(
+                                                                          .accent2;
+                                                                    } else if (containerScheduleRecord
+                                                                        .active) {
+                                                                      return FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryText,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ].divide(const SizedBox(
-                                                              height: 10.0)),
-                                                        ),
+                                                                          .secondaryBackground;
+                                                                    } else {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText;
+                                                                    }
+                                                                  }(),
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  lineHeight:
+                                                                      1.2,
+                                                                ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ].divide(
-                                                        const SizedBox(width: 15.0)),
-                                                  ),
+                                                    ),
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: [
+                                                        Text(
+                                                          dateTimeFormat(
+                                                            "jm",
+                                                            containerScheduleRecord
+                                                                .time!,
+                                                            locale: FFLocalizations
+                                                                    .of(context)
+                                                                .languageCode,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: () {
+                                                                  if (containerScheduleRecord
+                                                                      .isComplete) {
+                                                                    return FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .accent2;
+                                                                  } else if (containerScheduleRecord
+                                                                      .active) {
+                                                                    return FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground;
+                                                                  } else {
+                                                                    return FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText;
+                                                                  }
+                                                                }(),
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                            ].divide(const SizedBox(height: 10.0)),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       );
@@ -974,7 +1009,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                             title: const Text(
                                                                 'You are about to leave the app'),
                                                             content: const Text(
-                                                                'You are leaving our site and we cannot be held responsible for the content of external websites.'),
+                                                                'You are leaving our app and we cannot be held responsible for the content of external websites.'),
                                                             actions: [
                                                               TextButton(
                                                                 onPressed: () =>
@@ -1390,18 +1425,59 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 1.0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.asset(
-                                                'assets/images/craneoverhead.png',
-                                                width:
-                                                    MediaQuery.sizeOf(context)
+                                            child: StreamBuilder<
+                                                List<AboutBarbadosRecord>>(
+                                              stream: queryAboutBarbadosRecord(
+                                                singleRecord: true,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 30.0,
+                                                      height: 30.0,
+                                                      child: SpinKitThreeBounce(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        size: 30.0,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                List<AboutBarbadosRecord>
+                                                    imageAboutBarbadosRecordList =
+                                                    snapshot.data!;
+                                                final imageAboutBarbadosRecord =
+                                                    imageAboutBarbadosRecordList
+                                                            .isNotEmpty
+                                                        ? imageAboutBarbadosRecordList
+                                                            .first
+                                                        : null;
+
+                                                return ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: CachedNetworkImage(
+                                                    fadeInDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    fadeOutDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    imageUrl:
+                                                        imageAboutBarbadosRecord!
+                                                            .featuredImage,
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
                                                             .width *
                                                         1.0,
-                                                height: 180.0,
-                                                fit: BoxFit.cover,
-                                              ),
+                                                    height: 180.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                );
+                                              },
                                             ),
                                           ),
                                         ],
@@ -1576,7 +1652,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           milliseconds: 500),
                                                       imageUrl:
                                                           containerSpeakerRecord
-                                                              .downloadUrl,
+                                                              .image,
                                                       width: MediaQuery.sizeOf(
                                                                   context)
                                                               .width *
@@ -2061,7 +2137,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                         title: const Text(
                                                                             'You are about to leave the app'),
                                                                         content:
-                                                                            const Text('You are leaving our site and we cannot be held responsible for the content of external websites.'),
+                                                                            const Text('You are leaving our app and we cannot be held responsible for the content of external websites.'),
                                                                         actions: [
                                                                           TextButton(
                                                                             onPressed: () =>
@@ -2136,7 +2212,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                         500),
                                                             imageUrl:
                                                                 imageSponsorRecord
-                                                                    .downloadUrl,
+                                                                    .image,
                                                             width: 100.0,
                                                             height: 77.0,
                                                             fit: BoxFit.contain,

@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:the_compliance_unit_of_the_anti_money_laundering_authority_regional_conference/main.dart';
+import 'package:conference_hub_c_u_r_c24/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

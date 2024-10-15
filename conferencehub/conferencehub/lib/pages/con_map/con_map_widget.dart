@@ -45,7 +45,7 @@ class _ConMapWidgetState extends State<ConMapWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         drawer: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 1.0,
+          width: MediaQuery.sizeOf(context).width * 0.85,
           child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
@@ -222,19 +222,19 @@ class _ConMapWidgetState extends State<ConMapWidget> {
                                                   const Duration(milliseconds: 500),
                                               fadeOutDuration:
                                                   const Duration(milliseconds: 500),
-                                              imageUrl: columnConMapRecord
-                                                  .downloadUrl,
+                                              imageUrl:
+                                                  columnConMapRecord.image,
                                               fit: BoxFit.contain,
                                             ),
                                             allowRotation: false,
-                                            tag: columnConMapRecord.downloadUrl,
+                                            tag: columnConMapRecord.image,
                                             useHeroAnimation: true,
                                           ),
                                         ),
                                       );
                                     },
                                     child: Hero(
-                                      tag: columnConMapRecord.downloadUrl,
+                                      tag: columnConMapRecord.image,
                                       transitionOnUserGestures: true,
                                       child: ClipRRect(
                                         borderRadius:
@@ -244,8 +244,7 @@ class _ConMapWidgetState extends State<ConMapWidget> {
                                               const Duration(milliseconds: 500),
                                           fadeOutDuration:
                                               const Duration(milliseconds: 500),
-                                          imageUrl:
-                                              columnConMapRecord.downloadUrl,
+                                          imageUrl: columnConMapRecord.image,
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   1.0,

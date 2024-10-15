@@ -1,11 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/comp/earn_points/earn_points_widget.dart';
 import '/components/menu_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shake/shake.dart';
 import 'con_rewards_model.dart';
 export 'con_rewards_model.dart';
 
@@ -20,11 +23,35 @@ class _ConRewardsWidgetState extends State<ConRewardsWidget> {
   late ConRewardsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late ShakeDetector shakeDetector;
+  var shakeActionInProgress = false;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ConRewardsModel());
+
+    // On shake action.
+    shakeDetector = ShakeDetector.autoStart(
+      onPhoneShake: () async {
+        if (shakeActionInProgress) {
+          return;
+        }
+        shakeActionInProgress = true;
+        try {
+          await currentUserReference!.update({
+            ...mapToFirestore(
+              {
+                'rewardPoints': FieldValue.increment(5),
+              },
+            ),
+          });
+        } finally {
+          shakeActionInProgress = false;
+        }
+      },
+      shakeThresholdGravity: 1.5,
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -33,6 +60,7 @@ class _ConRewardsWidgetState extends State<ConRewardsWidget> {
   void dispose() {
     _model.dispose();
 
+    shakeDetector.stopListening();
     super.dispose();
   }
 
@@ -44,7 +72,7 @@ class _ConRewardsWidgetState extends State<ConRewardsWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         drawer: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 1.0,
+          width: MediaQuery.sizeOf(context).width * 0.85,
           child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
@@ -140,24 +168,33 @@ class _ConRewardsWidgetState extends State<ConRewardsWidget> {
                   alignment: const AlignmentDirectional(1.0, -1.0),
                   children: [
                     AuthUserStreamWidget(
-                      builder: (context) => ClipRRect(
-                        borderRadius: BorderRadius.circular(200.0),
-                        child: Container(
-                          width: 200.0,
-                          height: 200.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: Image.network(
-                                currentUserPhoto,
-                              ).image,
-                            ),
-                            borderRadius: BorderRadius.circular(200.0),
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              width: 4.0,
+                      builder: (context) => InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('profile');
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(200.0),
+                          child: Container(
+                            width: 200.0,
+                            height: 200.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: CachedNetworkImageProvider(
+                                  currentUserPhoto,
+                                ),
+                              ),
+                              borderRadius: BorderRadius.circular(200.0),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                width: 4.0,
+                              ),
                             ),
                           ),
                         ),

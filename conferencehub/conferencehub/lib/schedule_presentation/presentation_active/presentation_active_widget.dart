@@ -115,8 +115,8 @@ class _PresentationActiveWidgetState extends State<PresentationActiveWidget>
                                       FlutterFlowTheme.of(context).primaryText,
                                   size: 24.0,
                                 ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
+                                onPressed: () async {
+                                  context.safePop();
                                 },
                               ),
                             ],
@@ -432,105 +432,86 @@ class _PresentationActiveWidgetState extends State<PresentationActiveWidget>
                                                                           ].divide(const SizedBox(width: 8.0)),
                                                                         );
                                                                       } else {
-                                                                        return StreamBuilder<
-                                                                            ScheduleRecord>(
-                                                                          stream:
-                                                                              ScheduleRecord.getDocument(presentationActiveScheduleRecord.reference),
-                                                                          builder:
-                                                                              (context, snapshot) {
-                                                                            // Customize what your widget looks like when it's loading.
-                                                                            if (!snapshot.hasData) {
-                                                                              return Center(
-                                                                                child: SizedBox(
-                                                                                  width: 30.0,
-                                                                                  height: 30.0,
-                                                                                  child: SpinKitThreeBounce(
-                                                                                    color: FlutterFlowTheme.of(context).primary,
-                                                                                    size: 30.0,
-                                                                                  ),
+                                                                        return Container(
+                                                                          decoration:
+                                                                              const BoxDecoration(),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.start,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children:
+                                                                                [
+                                                                              Container(
+                                                                                width: MediaQuery.sizeOf(context).width * 0.75,
+                                                                                constraints: const BoxConstraints(
+                                                                                  minWidth: 200.0,
+                                                                                  minHeight: 40.0,
+                                                                                  maxWidth: 500.0,
                                                                                 ),
-                                                                              );
-                                                                            }
-
-                                                                            final containerScheduleRecord =
-                                                                                snapshot.data!;
-
-                                                                            return Container(
-                                                                              decoration: const BoxDecoration(),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                children: [
-                                                                                  Container(
-                                                                                    width: MediaQuery.sizeOf(context).width * 0.75,
-                                                                                    constraints: const BoxConstraints(
-                                                                                      minWidth: 200.0,
-                                                                                      minHeight: 40.0,
-                                                                                      maxWidth: 500.0,
-                                                                                    ),
-                                                                                    decoration: BoxDecoration(
-                                                                                      color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                      borderRadius: BorderRadius.circular(8.0),
-                                                                                    ),
-                                                                                    child: Padding(
-                                                                                      padding: const EdgeInsets.all(10.0),
-                                                                                      child: Column(
+                                                                                decoration: BoxDecoration(
+                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                                ),
+                                                                                child: Padding(
+                                                                                  padding: const EdgeInsets.all(10.0),
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        chatInItem.displayName,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Poppins',
+                                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                                              fontSize: 12.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FontWeight.w600,
+                                                                                            ),
+                                                                                      ),
+                                                                                      Column(
                                                                                         mainAxisSize: MainAxisSize.max,
-                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        crossAxisAlignment: CrossAxisAlignment.end,
                                                                                         children: [
+                                                                                          Container(
+                                                                                            width: MediaQuery.sizeOf(context).width * 0.69,
+                                                                                            decoration: const BoxDecoration(),
+                                                                                            child: Text(
+                                                                                              chatInItem.chatMessage,
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'Inter',
+                                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                    fontSize: 14.0,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FontWeight.normal,
+                                                                                                    lineHeight: 1.2,
+                                                                                                  ),
+                                                                                            ),
+                                                                                          ),
                                                                                           Text(
-                                                                                            chatInItem.displayName,
+                                                                                            dateTimeFormat(
+                                                                                              "jm",
+                                                                                              chatInItem.timestamp!,
+                                                                                              locale: FFLocalizations.of(context).languageCode,
+                                                                                            ),
                                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                  fontFamily: 'Poppins',
-                                                                                                  color: FlutterFlowTheme.of(context).primary,
+                                                                                                  fontFamily: 'Inter',
+                                                                                                  color: FlutterFlowTheme.of(context).accent2,
                                                                                                   fontSize: 12.0,
                                                                                                   letterSpacing: 0.0,
-                                                                                                  fontWeight: FontWeight.w600,
                                                                                                 ),
                                                                                           ),
-                                                                                          Column(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                                                                            children: [
-                                                                                              Container(
-                                                                                                width: MediaQuery.sizeOf(context).width * 0.69,
-                                                                                                decoration: const BoxDecoration(),
-                                                                                                child: Text(
-                                                                                                  chatInItem.chatMessage,
-                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                        fontFamily: 'Inter',
-                                                                                                        color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                        fontSize: 14.0,
-                                                                                                        letterSpacing: 0.0,
-                                                                                                        fontWeight: FontWeight.normal,
-                                                                                                        lineHeight: 1.2,
-                                                                                                      ),
-                                                                                                ),
-                                                                                              ),
-                                                                                              Text(
-                                                                                                dateTimeFormat(
-                                                                                                  "jm",
-                                                                                                  chatInItem.timestamp!,
-                                                                                                  locale: FFLocalizations.of(context).languageCode,
-                                                                                                ),
-                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                      fontFamily: 'Inter',
-                                                                                                      color: FlutterFlowTheme.of(context).accent2,
-                                                                                                      fontSize: 12.0,
-                                                                                                      letterSpacing: 0.0,
-                                                                                                    ),
-                                                                                              ),
-                                                                                            ].divide(const SizedBox(height: 5.0)),
-                                                                                          ),
-                                                                                        ].divide(const SizedBox(height: 6.0)),
+                                                                                        ].divide(const SizedBox(height: 5.0)),
                                                                                       ),
-                                                                                    ),
+                                                                                    ].divide(const SizedBox(height: 6.0)),
                                                                                   ),
-                                                                                ].divide(const SizedBox(width: 8.0)),
+                                                                                ),
                                                                               ),
-                                                                            );
-                                                                          },
+                                                                            ].divide(const SizedBox(width: 8.0)),
+                                                                          ),
                                                                         );
                                                                       }
                                                                     },

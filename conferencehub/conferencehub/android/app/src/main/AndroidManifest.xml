@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
 
     <application
-        android:label="The Compliance Unit of the Anti-Money Laundering Authority Regional Conference"
+        android:label="Conference Hub CURC24"
         tools:replace="android:label"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
@@ -49,7 +49,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="thecomplianceunitoftheantimoneylaunderingauthorityregionalconference" android:host="thecomplianceunitoftheantimoneylaunderingauthorityregionalconference.com" />
+                <data android:scheme="conferencehubcurc24" android:host="conferencehubcurc24.com" />
             </intent-filter>
 
         </activity>

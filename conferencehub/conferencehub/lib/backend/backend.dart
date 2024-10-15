@@ -17,6 +17,7 @@ import 'schema/sponsor_record.dart';
 import 'schema/earn_points_record.dart';
 import 'schema/users_record.dart';
 import 'schema/chat_record.dart';
+import 'schema/about_barbados_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -37,6 +38,7 @@ export 'schema/sponsor_record.dart';
 export 'schema/earn_points_record.dart';
 export 'schema/users_record.dart';
 export 'schema/chat_record.dart';
+export 'schema/about_barbados_record.dart';
 
 /// Functions to query NotesRecords (as a Stream and as a Future).
 Future<int> queryNotesRecordCount({
@@ -483,6 +485,43 @@ Future<List<ChatRecord>> queryChatRecordOnce({
     queryCollectionOnce(
       ChatRecord.collection(parent),
       ChatRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query AboutBarbadosRecords (as a Stream and as a Future).
+Future<int> queryAboutBarbadosRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      AboutBarbadosRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<AboutBarbadosRecord>> queryAboutBarbadosRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      AboutBarbadosRecord.collection,
+      AboutBarbadosRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<AboutBarbadosRecord>> queryAboutBarbadosRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      AboutBarbadosRecord.collection,
+      AboutBarbadosRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

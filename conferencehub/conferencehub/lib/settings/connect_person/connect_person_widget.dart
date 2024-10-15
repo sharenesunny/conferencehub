@@ -145,8 +145,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              scaffoldKey.currentState!
-                                                  .openDrawer();
+                                              context.safePop();
                                             },
                                             child: ClipRRect(
                                               borderRadius:
@@ -293,8 +292,9 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Color(0x00000000),
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -364,8 +364,9 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Color(0x00000000),
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -435,8 +436,9 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Color(0x00000000),
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -525,8 +527,10 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                                   BorderRadius.circular(8.0),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Color(0x00000000),
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
                                                 width: 2.0,
                                               ),
                                               borderRadius:
@@ -649,8 +653,10 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                                   BorderRadius.circular(8.0),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Color(0x00000000),
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
                                                 width: 2.0,
                                               ),
                                               borderRadius:
@@ -755,8 +761,9 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Color(0x00000000),
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -827,8 +834,9 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Color(0x00000000),
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),

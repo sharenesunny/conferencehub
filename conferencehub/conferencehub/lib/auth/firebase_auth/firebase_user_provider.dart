@@ -5,10 +5,8 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class TheComplianceUnitOfTheAntiMoneyLaunderingAuthorityRegionalConferenceFirebaseUser
-    extends BaseAuthUser {
-  TheComplianceUnitOfTheAntiMoneyLaunderingAuthorityRegionalConferenceFirebaseUser(
-      this.user);
+class ConferenceHubCURC24FirebaseUser extends BaseAuthUser {
+  ConferenceHubCURC24FirebaseUser(this.user);
   User? user;
   @override
   bool get loggedIn => user != null;
@@ -57,22 +55,18 @@ class TheComplianceUnitOfTheAntiMoneyLaunderingAuthorityRegionalConferenceFireba
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
   static BaseAuthUser fromFirebaseUser(User? user) =>
-      TheComplianceUnitOfTheAntiMoneyLaunderingAuthorityRegionalConferenceFirebaseUser(
-          user);
+      ConferenceHubCURC24FirebaseUser(user);
 }
 
-Stream<BaseAuthUser>
-    theComplianceUnitOfTheAntiMoneyLaunderingAuthorityRegionalConferenceFirebaseUserStream() =>
-        FirebaseAuth.instance
-            .authStateChanges()
-            .debounce((user) => user == null && !loggedIn
-                ? TimerStream(true, const Duration(seconds: 1))
-                : Stream.value(user))
-            .map<BaseAuthUser>(
-          (user) {
-            currentUser =
-                TheComplianceUnitOfTheAntiMoneyLaunderingAuthorityRegionalConferenceFirebaseUser(
-                    user);
-            return currentUser!;
-          },
-        );
+Stream<BaseAuthUser> conferenceHubCURC24FirebaseUserStream() =>
+    FirebaseAuth.instance
+        .authStateChanges()
+        .debounce((user) => user == null && !loggedIn
+            ? TimerStream(true, const Duration(seconds: 1))
+            : Stream.value(user))
+        .map<BaseAuthUser>(
+      (user) {
+        currentUser = ConferenceHubCURC24FirebaseUser(user);
+        return currentUser!;
+      },
+    );

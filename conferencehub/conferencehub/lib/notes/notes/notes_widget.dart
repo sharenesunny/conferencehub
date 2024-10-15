@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/menu_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -56,7 +57,7 @@ class _NotesWidgetState extends State<NotesWidget> {
           ),
         ),
         drawer: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 1.0,
+          width: MediaQuery.sizeOf(context).width * 0.85,
           child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
@@ -179,7 +180,12 @@ class _NotesWidgetState extends State<NotesWidget> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: StreamBuilder<List<NotesRecord>>(
-                      stream: queryNotesRecord(),
+                      stream: queryNotesRecord(
+                        queryBuilder: (notesRecord) => notesRecord.where(
+                          'uID',
+                          isEqualTo: currentUserUid,
+                        ),
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
@@ -246,6 +252,62 @@ class _NotesWidgetState extends State<NotesWidget> {
                                         ),
                                       }.withoutNulls,
                                     );
+                                  },
+                                  onLongPress: () async {
+                                    var confirmDialogResponse =
+                                        await showDialog<bool>(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: const Text('Deleting Note'),
+                                                  content: const Text(
+                                                      'Are you sure you want to delete this note? This action cannot be undone.'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              false),
+                                                      child: const Text('Cancel'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              true),
+                                                      child: const Text('Yes'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ) ??
+                                            false;
+                                    if (confirmDialogResponse) {
+                                      await containerNotesRecord.reference
+                                          .delete();
+                                      ScaffoldMessenger.of(context)
+                                          .clearSnackBars();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Note Deleted!',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              const Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                    } else {
+                                      return;
+                                    }
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(5.0),
