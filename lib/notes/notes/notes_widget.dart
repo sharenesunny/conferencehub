@@ -1,5 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/comp/empty_state_notes/empty_state_notes_widget.dart';
+import '/comp/loading_offwhite/loading_offwhite_widget.dart';
 import '/components/menu_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -160,7 +162,7 @@ class _NotesWidgetState extends State<NotesWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .displayMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       fontSize: 14.0,
@@ -189,19 +191,13 @@ class _NotesWidgetState extends State<NotesWidget> {
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 30.0,
-                              height: 30.0,
-                              child: SpinKitThreeBounce(
-                                color: FlutterFlowTheme.of(context).primary,
-                                size: 30.0,
-                              ),
-                            ),
-                          );
+                          return const LoadingOffwhiteWidget();
                         }
                         List<NotesRecord> staggeredViewNotesRecordList =
                             snapshot.data!;
+                        if (staggeredViewNotesRecordList.isEmpty) {
+                          return const EmptyStateNotesWidget();
+                        }
 
                         return MasonryGridView.builder(
                           gridDelegate:
@@ -224,12 +220,12 @@ class _NotesWidgetState extends State<NotesWidget> {
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 30.0,
-                                      height: 30.0,
+                                      width: 10.0,
+                                      height: 10.0,
                                       child: SpinKitThreeBounce(
                                         color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 30.0,
+                                            .primaryBackground,
+                                        size: 10.0,
                                       ),
                                     ),
                                   );
@@ -383,7 +379,7 @@ class _NotesWidgetState extends State<NotesWidget> {
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
-                                                                    'Poppins',
+                                                                    'Inter',
                                                                 fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
@@ -408,7 +404,7 @@ class _NotesWidgetState extends State<NotesWidget> {
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
-                                                                    'Poppins',
+                                                                    'Inter',
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
@@ -436,7 +432,7 @@ class _NotesWidgetState extends State<NotesWidget> {
                                                             .bodyMedium
                                                             .override(
                                                               fontFamily:
-                                                                  'Poppins',
+                                                                  'Inter',
                                                               color: const Color(
                                                                   0xFFC7B187),
                                                               fontSize: 12.0,
@@ -465,7 +461,7 @@ class _NotesWidgetState extends State<NotesWidget> {
                                                             .bodyMedium
                                                             .override(
                                                               fontFamily:
-                                                                  'Poppins',
+                                                                  'Inter',
                                                               color: const Color(
                                                                   0xFFC7B187),
                                                               fontSize: 12.0,

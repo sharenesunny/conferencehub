@@ -21,7 +21,7 @@ export '/speakers/speaker_info_home/speaker_info_home_widget.dart'
 export '/settings/profile/profile_widget.dart' show ProfileWidget;
 export '/pages/con_rewards/con_rewards_widget.dart' show ConRewardsWidget;
 export '/pages/rewards_ranks/rewards_ranks_widget.dart' show RewardsRanksWidget;
-export '/pages/con_map/con_map_widget.dart' show ConMapWidget;
+export '/expages/con_map/con_map_widget.dart' show ConMapWidget;
 export '/expages/settings/settings_widget.dart' show SettingsWidget;
 export '/home/home_widget.dart' show HomeWidget;
 export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
@@ -34,3 +34,6 @@ export '/pages/connect_list/connect_list_widget.dart' show ConnectListWidget;
 export '/settings/connect_person/connect_person_widget.dart'
     show ConnectPersonWidget;
 export '/settings/edit_profile/edit_profile_widget.dart' show EditProfileWidget;
+export '/pages/check_in/check_in_widget.dart' show CheckInWidget;
+export '/speakers/speaker_presentation/speaker_presentation_widget.dart'
+    show SpeakerPresentationWidget;

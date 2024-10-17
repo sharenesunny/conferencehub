@@ -278,8 +278,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'editProfile',
           path: '/editProfile',
           builder: (context, params) => const EditProfileWidget(),
+        ),
+        FFRoute(
+          name: 'checkIn',
+          path: '/checkIn',
+          builder: (context, params) => const CheckInWidget(),
+        ),
+        FFRoute(
+          name: 'speakerPresentation',
+          path: '/speakerPresentation',
+          builder: (context, params) => SpeakerPresentationWidget(
+            speakersPres: params.getParam(
+              'speakersPres',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['speaker'],
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {

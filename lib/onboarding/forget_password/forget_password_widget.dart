@@ -98,7 +98,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     letterSpacing: 0.0,
@@ -126,7 +126,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                             letterSpacing: 0.0,
@@ -135,7 +135,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             color: const Color(0xFF4E63A7),
                                             letterSpacing: 0.0,
                                           ),
@@ -185,7 +185,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           letterSpacing: 0.0,
@@ -229,7 +229,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
                                         letterSpacing: 0.0,
@@ -263,7 +263,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Poppins',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .accent3,

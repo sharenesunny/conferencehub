@@ -35,20 +35,16 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
 
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    _model.textController3 ??= TextEditingController();
     _model.textFieldFocusNode3 ??= FocusNode();
 
     _model.textFieldFocusNode4 ??= FocusNode();
 
     _model.textFieldFocusNode5 ??= FocusNode();
 
-    _model.textController6 ??= TextEditingController();
     _model.textFieldFocusNode6 ??= FocusNode();
 
-    _model.textController7 ??= TextEditingController();
     _model.textFieldFocusNode7 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -72,11 +68,11 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 30.0,
-                height: 30.0,
+                width: 10.0,
+                height: 10.0,
                 child: SpinKitThreeBounce(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 30.0,
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  size: 10.0,
                 ),
               ),
             ),
@@ -251,7 +247,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -273,14 +269,14 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     hintText: 'example@mail.com',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -322,7 +318,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
                                   cursorColor:
@@ -334,7 +330,10 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                               SizedBox(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 child: TextFormField(
-                                  controller: _model.textController2,
+                                  controller: _model.textController2 ??=
+                                      TextEditingController(
+                                    text: connectPersonUsersRecord.title,
+                                  ),
                                   focusNode: _model.textFieldFocusNode2,
                                   autofocus: false,
                                   readOnly: true,
@@ -345,14 +344,14 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     hintText: 'example@mail.com',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -394,7 +393,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
                                   cursorColor:
@@ -406,7 +405,10 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                               SizedBox(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 child: TextFormField(
-                                  controller: _model.textController3,
+                                  controller: _model.textController3 ??=
+                                      TextEditingController(
+                                    text: connectPersonUsersRecord.company,
+                                  ),
                                   focusNode: _model.textFieldFocusNode3,
                                   autofocus: false,
                                   readOnly: true,
@@ -417,14 +419,14 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     hintText: 'example@mail.com',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -466,7 +468,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
                                   cursorColor:
@@ -505,7 +507,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Poppins',
+                                                      fontFamily: 'Inter',
                                                       letterSpacing: 0.0,
                                                     ),
                                             hintText: 'example@mail.com',
@@ -513,7 +515,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Poppins',
+                                                      fontFamily: 'Inter',
                                                       letterSpacing: 0.0,
                                                     ),
                                             enabledBorder: OutlineInputBorder(
@@ -565,7 +567,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Inter',
                                                 letterSpacing: 0.0,
                                               ),
                                           cursorColor:
@@ -631,7 +633,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Poppins',
+                                                      fontFamily: 'Inter',
                                                       letterSpacing: 0.0,
                                                     ),
                                             hintText: '1246-123-4567',
@@ -639,7 +641,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Poppins',
+                                                      fontFamily: 'Inter',
                                                       letterSpacing: 0.0,
                                                     ),
                                             enabledBorder: OutlineInputBorder(
@@ -691,7 +693,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Inter',
                                                 letterSpacing: 0.0,
                                               ),
                                           cursorColor:
@@ -730,7 +732,10 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                               SizedBox(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 child: TextFormField(
-                                  controller: _model.textController6,
+                                  controller: _model.textController6 ??=
+                                      TextEditingController(
+                                    text: connectPersonUsersRecord.bio,
+                                  ),
                                   focusNode: _model.textFieldFocusNode6,
                                   autofocus: false,
                                   readOnly: true,
@@ -741,7 +746,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     hintText:
@@ -749,7 +754,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -791,7 +796,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
                                   maxLines: null,
@@ -805,7 +810,10 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                               SizedBox(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 child: TextFormField(
-                                  controller: _model.textController7,
+                                  controller: _model.textController7 ??=
+                                      TextEditingController(
+                                    text: connectPersonUsersRecord.country,
+                                  ),
                                   focusNode: _model.textFieldFocusNode7,
                                   autofocus: false,
                                   readOnly: true,
@@ -816,13 +824,13 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -864,7 +872,7 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
                                   cursorColor:
@@ -876,40 +884,143 @@ class _ConnectPersonWidgetState extends State<ConnectPersonWidget> {
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  FlutterFlowIconButton(
-                                    borderColor: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    borderRadius: 8.0,
-                                    borderWidth: 2.0,
-                                    buttonSize: 40.0,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).primary,
-                                    icon: FaIcon(
-                                      FontAwesomeIcons.instagram,
-                                      color: FlutterFlowTheme.of(context).info,
-                                      size: 24.0,
+                                  if (connectPersonUsersRecord
+                                              .socialMedia.instagram !=
+                                          '')
+                                    FlutterFlowIconButton(
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      borderRadius: 8.0,
+                                      borderWidth: 2.0,
+                                      buttonSize: 40.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.instagram,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () async {
+                                        await launchURL(connectPersonUsersRecord
+                                            .socialMedia.instagram);
+                                      },
                                     ),
-                                    onPressed: () {
-                                      print('IconButton pressed ...');
-                                    },
-                                  ),
-                                  FlutterFlowIconButton(
-                                    borderColor: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    borderRadius: 8.0,
-                                    borderWidth: 2.0,
-                                    buttonSize: 40.0,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).primary,
-                                    icon: FaIcon(
-                                      FontAwesomeIcons.instagram,
-                                      color: FlutterFlowTheme.of(context).info,
-                                      size: 24.0,
+                                  if (connectPersonUsersRecord
+                                              .socialMedia.linkedIn !=
+                                          '')
+                                    FlutterFlowIconButton(
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      borderRadius: 8.0,
+                                      borderWidth: 2.0,
+                                      buttonSize: 40.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.linkedin,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () async {
+                                        await launchURL(connectPersonUsersRecord
+                                            .socialMedia.linkedIn);
+                                      },
                                     ),
-                                    onPressed: () {
-                                      print('IconButton pressed ...');
-                                    },
-                                  ),
+                                  if (connectPersonUsersRecord
+                                              .socialMedia.facebook !=
+                                          '')
+                                    FlutterFlowIconButton(
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      borderRadius: 8.0,
+                                      borderWidth: 2.0,
+                                      buttonSize: 40.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.facebookF,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        size: 20.0,
+                                      ),
+                                      onPressed: () async {
+                                        await launchURL(connectPersonUsersRecord
+                                            .socialMedia.facebook);
+                                      },
+                                    ),
+                                  if (connectPersonUsersRecord
+                                              .socialMedia.youTube !=
+                                          '')
+                                    FlutterFlowIconButton(
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      borderRadius: 8.0,
+                                      borderWidth: 2.0,
+                                      buttonSize: 40.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.youtube,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        size: 20.0,
+                                      ),
+                                      onPressed: () async {
+                                        await launchURL(connectPersonUsersRecord
+                                            .socialMedia.youTube);
+                                      },
+                                    ),
+                                ].divide(const SizedBox(width: 10.0)),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  if (connectPersonUsersRecord
+                                              .socialMedia.twitter !=
+                                          '')
+                                    FlutterFlowIconButton(
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      borderRadius: 8.0,
+                                      borderWidth: 2.0,
+                                      buttonSize: 40.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.twitter,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        size: 20.0,
+                                      ),
+                                      onPressed: () async {
+                                        await launchURL(connectPersonUsersRecord
+                                            .socialMedia.twitter);
+                                      },
+                                    ),
+                                  if (connectPersonUsersRecord
+                                              .socialMedia.tikTok !=
+                                          '')
+                                    FlutterFlowIconButton(
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      borderRadius: 8.0,
+                                      borderWidth: 2.0,
+                                      buttonSize: 40.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.tiktok,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        size: 20.0,
+                                      ),
+                                      onPressed: () async {
+                                        await launchURL(connectPersonUsersRecord
+                                            .socialMedia.tikTok);
+                                      },
+                                    ),
                                 ].divide(const SizedBox(width: 10.0)),
                               ),
                             ].divide(const SizedBox(height: 20.0)),

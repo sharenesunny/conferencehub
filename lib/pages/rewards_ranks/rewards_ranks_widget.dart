@@ -134,7 +134,7 @@ class _RewardsRanksWidgetState extends State<RewardsRanksWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .displayMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       fontSize: 14.0,
@@ -158,11 +158,12 @@ class _RewardsRanksWidgetState extends State<RewardsRanksWidget> {
                       if (!snapshot.hasData) {
                         return Center(
                           child: SizedBox(
-                            width: 30.0,
-                            height: 30.0,
+                            width: 10.0,
+                            height: 10.0,
                             child: SpinKitThreeBounce(
-                              color: FlutterFlowTheme.of(context).primary,
-                              size: 30.0,
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              size: 10.0,
                             ),
                           ),
                         );
@@ -183,12 +184,12 @@ class _RewardsRanksWidgetState extends State<RewardsRanksWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 30.0,
-                                    height: 30.0,
+                                    width: 10.0,
+                                    height: 10.0,
                                     child: SpinKitThreeBounce(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      size: 30.0,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 10.0,
                                     ),
                                   ),
                                 );
@@ -251,7 +252,7 @@ class _RewardsRanksWidgetState extends State<RewardsRanksWidget> {
                                                       context)
                                                   .bodyMedium
                                                   .override(
-                                                    fontFamily: 'Poppins',
+                                                    fontFamily: 'Inter',
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .secondaryBackground,
@@ -273,7 +274,7 @@ class _RewardsRanksWidgetState extends State<RewardsRanksWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Poppins',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondary,

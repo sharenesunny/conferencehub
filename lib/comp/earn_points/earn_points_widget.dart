@@ -49,11 +49,11 @@ class _EarnPointsWidgetState extends State<EarnPointsWidget> {
         if (!snapshot.hasData) {
           return Center(
             child: SizedBox(
-              width: 30.0,
-              height: 30.0,
+              width: 10.0,
+              height: 10.0,
               child: SpinKitThreeBounce(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 30.0,
+                color: FlutterFlowTheme.of(context).primaryBackground,
+                size: 10.0,
               ),
             ),
           );
@@ -126,7 +126,7 @@ class _EarnPointsWidgetState extends State<EarnPointsWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 18.0,
@@ -171,12 +171,12 @@ class _EarnPointsWidgetState extends State<EarnPointsWidget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 30.0,
-                                        height: 30.0,
+                                        width: 10.0,
+                                        height: 10.0,
                                         child: SpinKitThreeBounce(
                                           color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          size: 30.0,
+                                              .primaryBackground,
+                                          size: 10.0,
                                         ),
                                       ),
                                     );
@@ -216,7 +216,7 @@ class _EarnPointsWidgetState extends State<EarnPointsWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Poppins',
+                                                  fontFamily: 'Inter',
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),

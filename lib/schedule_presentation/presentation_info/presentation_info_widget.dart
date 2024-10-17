@@ -64,11 +64,11 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                 if (!snapshot.hasData) {
                   return Center(
                     child: SizedBox(
-                      width: 30.0,
-                      height: 30.0,
+                      width: 10.0,
+                      height: 10.0,
                       child: SpinKitThreeBounce(
-                        color: FlutterFlowTheme.of(context).primary,
-                        size: 30.0,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        size: 10.0,
                       ),
                     ),
                   );
@@ -267,7 +267,7 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Poppins',
+                                                        fontFamily: 'Inter',
                                                         letterSpacing: 0.0,
                                                       ),
                                             ),
@@ -303,7 +303,7 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color:
                                           FlutterFlowTheme.of(context).primary,
                                       fontSize: 12.0,
@@ -316,7 +316,7 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 18.0,
@@ -352,13 +352,13 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 30.0,
-                                              height: 30.0,
+                                              width: 10.0,
+                                              height: 10.0,
                                               child: SpinKitThreeBounce(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 30.0,
+                                                        .primaryBackground,
+                                                size: 10.0,
                                               ),
                                             ),
                                           );
@@ -374,162 +374,166 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                         return Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            StreamBuilder<SpeakerRecord>(
-                                              stream: SpeakerRecord.getDocument(
-                                                  columnSpeakerRecord!
-                                                      .reference),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 30.0,
-                                                      height: 30.0,
-                                                      child: SpinKitThreeBounce(
+                                            if (columnScheduleRecord.solo ==
+                                                true)
+                                              StreamBuilder<SpeakerRecord>(
+                                                stream:
+                                                    SpeakerRecord.getDocument(
+                                                        columnSpeakerRecord!
+                                                            .reference),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 10.0,
+                                                        height: 10.0,
+                                                        child:
+                                                            SpinKitThreeBounce(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          size: 10.0,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  final containerSpeakerRecord =
+                                                      snapshot.data!;
+
+                                                  return InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context.pushNamed(
+                                                        'speakerPresentation',
+                                                        queryParameters: {
+                                                          'speakersPres':
+                                                              serializeParam(
+                                                            containerSpeakerRecord
+                                                                .reference,
+                                                            ParamType
+                                                                .DocumentReference,
+                                                          ),
+                                                        }.withoutNulls,
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          1.0,
+                                                      constraints:
+                                                          const BoxConstraints(
+                                                        minWidth: 200.0,
+                                                      ),
+                                                      decoration: BoxDecoration(
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primary,
-                                                        size: 30.0,
+                                                                .alternate,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets.all(5.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Container(
+                                                              width: 40.0,
+                                                              height: 40.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                image:
+                                                                    DecorationImage(
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  image:
+                                                                      CachedNetworkImageProvider(
+                                                                    containerSpeakerRecord
+                                                                        .image,
+                                                                  ),
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            50.0),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  width: 2.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              width: 155.0,
+                                                              decoration:
+                                                                  const BoxDecoration(),
+                                                              child: Text(
+                                                                containerSpeakerRecord
+                                                                    .name,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      lineHeight:
+                                                                          1.2,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ].divide(const SizedBox(
+                                                              width: 10.0)),
+                                                        ),
                                                       ),
                                                     ),
                                                   );
-                                                }
-
-                                                final containerSpeakerRecord =
-                                                    snapshot.data!;
-
-                                                return InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    context.pushNamed(
-                                                      'speakerInfoHome',
-                                                      queryParameters: {
-                                                        'speakersInner':
-                                                            serializeParam(
-                                                          containerSpeakerRecord
-                                                              .reference,
-                                                          ParamType
-                                                              .DocumentReference,
-                                                        ),
-                                                      }.withoutNulls,
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        1.0,
-                                                    constraints: const BoxConstraints(
-                                                      minWidth: 200.0,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.0),
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(5.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Container(
-                                                            width: 40.0,
-                                                            height: 40.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                              image:
-                                                                  DecorationImage(
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                                image:
-                                                                    CachedNetworkImageProvider(
-                                                                  containerSpeakerRecord
-                                                                      .image,
-                                                                ),
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          50.0),
-                                                              border:
-                                                                  Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                width: 2.0,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            width: 155.0,
-                                                            decoration:
-                                                                const BoxDecoration(),
-                                                            child: Text(
-                                                              containerSpeakerRecord
-                                                                  .name,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    lineHeight:
-                                                                        1.2,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ].divide(const SizedBox(
-                                                            width: 10.0)),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
+                                                },
+                                              ),
                                           ],
                                         );
                                       },
                                     ),
-                                  if (columnScheduleRecord.hasDescription ==
-                                      false)
+                                  if ((columnScheduleRecord.hasDescription ==
+                                          false) &&
+                                      (columnScheduleRecord.solo == false))
                                     StreamBuilder<List<SpeakerRecord>>(
                                       stream: querySpeakerRecord(
                                         queryBuilder: (speakerRecord) =>
@@ -540,13 +544,13 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 30.0,
-                                              height: 30.0,
+                                              width: 10.0,
+                                              height: 10.0,
                                               child: SpinKitThreeBounce(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 30.0,
+                                                        .primaryBackground,
+                                                size: 10.0,
                                               ),
                                             ),
                                           );
@@ -572,14 +576,13 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
-                                                      width: 30.0,
-                                                      height: 30.0,
+                                                      width: 10.0,
+                                                      height: 10.0,
                                                       child: SpinKitThreeBounce(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        size: 30.0,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 10.0,
                                                       ),
                                                     ),
                                                   );
@@ -599,9 +602,9 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                                       Colors.transparent,
                                                   onTap: () async {
                                                     context.pushNamed(
-                                                      'speakerInfoHome',
+                                                      'speakerPresentation',
                                                       queryParameters: {
-                                                        'speakersInner':
+                                                        'speakersPres':
                                                             serializeParam(
                                                           containerSpeakerRecord
                                                               .reference,
@@ -691,7 +694,7 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                                                   .bodyMedium
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Poppins',
+                                                                        'Inter',
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryBackground,
@@ -733,13 +736,13 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 30.0,
-                                              height: 30.0,
+                                              width: 10.0,
+                                              height: 10.0,
                                               child: SpinKitThreeBounce(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 30.0,
+                                                        .primaryBackground,
+                                                size: 10.0,
                                               ),
                                             ),
                                           );
@@ -769,14 +772,14 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                                   if (!snapshot.hasData) {
                                                     return Center(
                                                       child: SizedBox(
-                                                        width: 30.0,
-                                                        height: 30.0,
+                                                        width: 10.0,
+                                                        height: 10.0,
                                                         child:
                                                             SpinKitThreeBounce(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primary,
-                                                          size: 30.0,
+                                                              .primaryBackground,
+                                                          size: 10.0,
                                                         ),
                                                       ),
                                                     );
@@ -796,9 +799,9 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                                         Colors.transparent,
                                                     onTap: () async {
                                                       context.pushNamed(
-                                                        'speakerInfoHome',
+                                                        'speakerPresentation',
                                                         queryParameters: {
-                                                          'speakersInner':
+                                                          'speakersPres':
                                                               serializeParam(
                                                             containerSpeakerRecord
                                                                 .reference,
@@ -885,7 +888,7 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
-                                                                          'Poppins',
+                                                                          'Inter',
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
                                                                           .secondaryBackground,
@@ -943,7 +946,7 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -968,7 +971,7 @@ class _PresentationInfoWidgetState extends State<PresentationInfoWidget> {
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Inter',
                                   color: Colors.white,
                                   letterSpacing: 0.0,
                                 ),

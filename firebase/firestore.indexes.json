@@ -19,11 +19,25 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "presentationId",
-          "order": "ASCENDING"
+          "fieldPath": "presentors",
+          "arrayConfig": "CONTAINS"
         },
         {
           "fieldPath": "time",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "notice",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "active",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "day",
           "order": "ASCENDING"
         }
       ]
@@ -33,8 +47,8 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "presentors",
-          "arrayConfig": "CONTAINS"
+          "fieldPath": "isProgram",
+          "order": "ASCENDING"
         },
         {
           "fieldPath": "time",

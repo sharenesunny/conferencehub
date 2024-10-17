@@ -174,7 +174,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Poppins',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
@@ -390,7 +390,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               context.goNamed(
-                                'conMap',
+                                'activityFeed',
                                 extra: <String, dynamic>{
                                   kTransitionInfoKey: const TransitionInfo(
                                     hasTransition: true,
@@ -421,7 +421,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Icon(
-                                      Icons.map_rounded,
+                                      Icons.post_add_rounded,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
                                       size: 24.0,
@@ -430,7 +430,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 0.0, 0.0),
                                       child: Text(
-                                        'Event Map',
+                                        'Activity Feed',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

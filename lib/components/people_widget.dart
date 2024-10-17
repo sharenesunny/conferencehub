@@ -199,7 +199,7 @@ class _PeopleWidgetState extends State<PeopleWidget> {
             Text(
               'Richard Strike & 4 others',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Poppins',
+                    fontFamily: 'Inter',
                     fontSize: 12.0,
                     letterSpacing: 0.0,
                   ),

@@ -59,10 +59,6 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   FocusNode? textFieldFocusNode13;
   TextEditingController? textController13;
   String? Function(BuildContext, String?)? textController13Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode14;
-  TextEditingController? textController14;
-  String? Function(BuildContext, String?)? textController14Validator;
   // Model for menu component.
   late MenuModel menuModel;
 
@@ -111,9 +107,6 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
 
     textFieldFocusNode13?.dispose();
     textController13?.dispose();
-
-    textFieldFocusNode14?.dispose();
-    textController14?.dispose();
 
     menuModel.dispose();
   }

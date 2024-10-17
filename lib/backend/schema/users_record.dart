@@ -65,6 +65,31 @@ class UsersRecord extends FirestoreRecord {
   String get title => _title ?? '';
   bool hasTitle() => _title != null;
 
+  // "checkIn" field.
+  bool? _checkIn;
+  bool get checkIn => _checkIn ?? false;
+  bool hasCheckIn() => _checkIn != null;
+
+  // "bio" field.
+  String? _bio;
+  String get bio => _bio ?? '';
+  bool hasBio() => _bio != null;
+
+  // "country" field.
+  String? _country;
+  String get country => _country ?? '';
+  bool hasCountry() => _country != null;
+
+  // "company" field.
+  String? _company;
+  String get company => _company ?? '';
+  bool hasCompany() => _company != null;
+
+  // "socialMedia" field.
+  SocialMediaStruct? _socialMedia;
+  SocialMediaStruct get socialMedia => _socialMedia ?? SocialMediaStruct();
+  bool hasSocialMedia() => _socialMedia != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -76,6 +101,11 @@ class UsersRecord extends FirestoreRecord {
     _rewardPoints = castToType<int>(snapshotData['rewardPoints']);
     _job = snapshotData['job'] as String?;
     _title = snapshotData['title'] as String?;
+    _checkIn = snapshotData['checkIn'] as bool?;
+    _bio = snapshotData['bio'] as String?;
+    _country = snapshotData['country'] as String?;
+    _company = snapshotData['company'] as String?;
+    _socialMedia = SocialMediaStruct.maybeFromMap(snapshotData['socialMedia']);
   }
 
   static CollectionReference get collection =>
@@ -122,6 +152,11 @@ Map<String, dynamic> createUsersRecordData({
   int? rewardPoints,
   String? job,
   String? title,
+  bool? checkIn,
+  String? bio,
+  String? country,
+  String? company,
+  SocialMediaStruct? socialMedia,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -135,8 +170,16 @@ Map<String, dynamic> createUsersRecordData({
       'rewardPoints': rewardPoints,
       'job': job,
       'title': title,
+      'checkIn': checkIn,
+      'bio': bio,
+      'country': country,
+      'company': company,
+      'socialMedia': SocialMediaStruct().toMap(),
     }.withoutNulls,
   );
+
+  // Handle nested data for "socialMedia" field.
+  addSocialMediaStructData(firestoreData, socialMedia, 'socialMedia');
 
   return firestoreData;
 }
@@ -155,7 +198,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.connectCode == e2?.connectCode &&
         e1?.rewardPoints == e2?.rewardPoints &&
         e1?.job == e2?.job &&
-        e1?.title == e2?.title;
+        e1?.title == e2?.title &&
+        e1?.checkIn == e2?.checkIn &&
+        e1?.bio == e2?.bio &&
+        e1?.country == e2?.country &&
+        e1?.company == e2?.company &&
+        e1?.socialMedia == e2?.socialMedia;
   }
 
   @override
@@ -169,7 +217,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.connectCode,
         e?.rewardPoints,
         e?.job,
-        e?.title
+        e?.title,
+        e?.checkIn,
+        e?.bio,
+        e?.country,
+        e?.company,
+        e?.socialMedia
       ]);
 
   @override

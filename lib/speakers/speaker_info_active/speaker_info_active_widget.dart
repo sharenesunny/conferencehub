@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,7 +5,6 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import 'speaker_info_active_model.dart';
 export 'speaker_info_active_model.dart';
 
@@ -45,8 +43,6 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -64,11 +60,11 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                 if (!snapshot.hasData) {
                   return Center(
                     child: SizedBox(
-                      width: 30.0,
-                      height: 30.0,
+                      width: 10.0,
+                      height: 10.0,
                       child: SpinKitThreeBounce(
-                        color: FlutterFlowTheme.of(context).primary,
-                        size: 30.0,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        size: 10.0,
                       ),
                     ),
                   );
@@ -194,7 +190,7 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 20.0,
@@ -207,7 +203,7 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color:
                                           FlutterFlowTheme.of(context).primary,
                                       fontSize: 14.0,
@@ -241,7 +237,7 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -266,11 +262,12 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                             if (!snapshot.hasData) {
                               return Center(
                                 child: SizedBox(
-                                  width: 30.0,
-                                  height: 30.0,
+                                  width: 10.0,
+                                  height: 10.0,
                                   child: SpinKitThreeBounce(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 30.0,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    size: 10.0,
                                   ),
                                 ),
                               );
@@ -293,12 +290,12 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                     if (!snapshot.hasData) {
                                       return Center(
                                         child: SizedBox(
-                                          width: 30.0,
-                                          height: 30.0,
+                                          width: 10.0,
+                                          height: 10.0,
                                           child: SpinKitThreeBounce(
                                             color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 30.0,
+                                                .primaryBackground,
+                                            size: 10.0,
                                           ),
                                         ),
                                       );
@@ -383,16 +380,16 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                           padding: const EdgeInsets.all(10.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.end,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   Container(
                                                     width: MediaQuery.sizeOf(
@@ -410,37 +407,46 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                                         if (containerScheduleRecord
                                                                 .isProgram ==
                                                             false)
-                                                          Text(
-                                                            containerScheduleRecord
-                                                                .type,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: () {
-                                                                    if (containerScheduleRecord
-                                                                        .active) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .accent3;
-                                                                    } else if (containerScheduleRecord
-                                                                        .isComplete) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .accent2;
-                                                                    } else {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .alternate;
-                                                                    }
-                                                                  }(),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  lineHeight:
-                                                                      1.0,
-                                                                ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        5.0),
+                                                            child: Text(
+                                                              containerScheduleRecord
+                                                                  .type,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    color: () {
+                                                                      if (containerScheduleRecord
+                                                                          .active) {
+                                                                        return FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground;
+                                                                      } else if (containerScheduleRecord
+                                                                          .isComplete) {
+                                                                        return FlutterFlowTheme.of(context)
+                                                                            .accent2;
+                                                                      } else {
+                                                                        return FlutterFlowTheme.of(context)
+                                                                            .primary;
+                                                                      }
+                                                                    }(),
+                                                                    fontSize:
+                                                                        12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ),
+                                                            ),
                                                           ),
                                                         Text(
                                                           containerScheduleRecord
@@ -450,7 +456,7 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
-                                                                    'Poppins',
+                                                                    'Inter',
                                                                 color: () {
                                                                   if (containerScheduleRecord
                                                                       .isComplete) {
@@ -468,12 +474,12 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                                                         .primaryText;
                                                                   }
                                                                 }(),
-                                                                fontSize: 18.0,
+                                                                fontSize: 15.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w600,
+                                                                        .normal,
                                                                 lineHeight: 1.2,
                                                               ),
                                                         ),
@@ -486,6 +492,20 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment.end,
                                                     children: [
+                                                      Text(
+                                                        containerScheduleRecord
+                                                            .day,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
                                                       Text(
                                                         dateTimeFormat(
                                                           "jm",
@@ -501,7 +521,7 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                                             .bodyMedium
                                                             .override(
                                                               fontFamily:
-                                                                  'Poppins',
+                                                                  'Inter',
                                                               color: () {
                                                                 if (containerScheduleRecord
                                                                     .isComplete) {
@@ -519,7 +539,7 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                                                       .primaryText;
                                                                 }
                                                               }(),
-                                                              fontSize: 16.0,
+                                                              fontSize: 14.0,
                                                               letterSpacing:
                                                                   0.0,
                                                               fontWeight:
@@ -531,139 +551,6 @@ class _SpeakerInfoActiveWidgetState extends State<SpeakerInfoActiveWidget> {
                                                   ),
                                                 ],
                                               ),
-                                              if ((containerScheduleRecord
-                                                          .isProgram ==
-                                                      false) ||
-                                                  (FFAppState().mySchedule.contains(
-                                                          containerScheduleRecord
-                                                              .presentationId) ==
-                                                      false))
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 20.0, 0.0, 0.0),
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      FFAppState().addToMySchedule(
-                                                          containerScheduleRecord
-                                                              .presentationId);
-                                                      safeSetState(() {});
-
-                                                      await containerScheduleRecord
-                                                          .reference
-                                                          .update({
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'capacity':
-                                                                FieldValue
-                                                                    .increment(
-                                                                        -(1)),
-                                                            'registered':
-                                                                FieldValue
-                                                                    .arrayUnion([
-                                                              currentUserDisplayName
-                                                            ]),
-                                                          },
-                                                        ),
-                                                      });
-
-                                                      await currentUserReference!
-                                                          .update({
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'rewardPoints':
-                                                                FieldValue
-                                                                    .increment(
-                                                                        5),
-                                                          },
-                                                        ),
-                                                      });
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        SnackBar(
-                                                          content: Text(
-                                                            'Session added!',
-                                                            style: TextStyle(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryText,
-                                                            ),
-                                                          ),
-                                                          duration: const Duration(
-                                                              milliseconds:
-                                                                  4000),
-                                                          backgroundColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .secondary,
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Container(
-                                                      width: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width *
-                                                          1.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                        border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          width: 2.0,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.all(
-                                                            10.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              'add to \"My Schedule\"',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryBackground,
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
                                             ],
                                           ),
                                         ),

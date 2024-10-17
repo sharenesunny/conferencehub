@@ -1,5 +1,8 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/comp/empty_state_schedule/empty_state_schedule_widget.dart';
+import '/comp/loading_offwhite/loading_offwhite_widget.dart';
+import '/comp/loading_white/loading_white_widget.dart';
 import '/components/menu_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -8,9 +11,11 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -48,6 +53,63 @@ class _HomePageWidgetState extends State<HomePageWidget>
             duration: 1080.0.ms,
             color: const Color(0x80FFFFFF),
             angle: 0.524,
+          ),
+        ],
+      ),
+      'imageOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 950.ms),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 1100.0.ms,
+            duration: 600.0.ms,
+            begin: const Offset(0.0, 44.0),
+            end: const Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 950.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'imageOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: const Offset(92.0, 0.0),
+            end: const Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'columnOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 3000.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 3000.0.ms,
+            duration: 720.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'columnOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 840.0.ms,
+            duration: 720.0.ms,
+            begin: 0.0,
+            end: 1.0,
           ),
         ],
       ),
@@ -375,7 +437,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .displayMedium
                                                         .override(
-                                                          fontFamily: 'Poppins',
+                                                          fontFamily: 'Inter',
                                                           color:
                                                               const Color(0xFFBFDFEF),
                                                           fontSize: 35.0,
@@ -406,7 +468,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               height: 200.0,
                               fit: BoxFit.contain,
                             ),
-                          ),
+                          ).animateOnPageLoad(
+                              animationsMap['imageOnPageLoadAnimation1']!),
                         ),
                         Align(
                           alignment: const AlignmentDirectional(1.0, 1.0),
@@ -422,7 +485,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 fit: BoxFit.contain,
                                 alignment: const Alignment(0.0, 1.0),
                               ),
-                            ),
+                            ).animateOnPageLoad(
+                                animationsMap['imageOnPageLoadAnimation2']!),
                           ),
                         ),
                       ],
@@ -469,7 +533,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             style: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Inter',
                                   color: FlutterFlowTheme.of(context).tertiary,
                                   fontSize: 18.0,
                                   letterSpacing: 0.0,
@@ -481,7 +545,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Inter',
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                   fontSize: 14.0,
@@ -493,8 +557,203 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       ),
                     ),
                   ),
+                  if (valueOrDefault<bool>(
+                          currentUserDocument?.checkIn, false) ==
+                      false)
+                    AuthUserStreamWidget(
+                      builder: (context) => Container(
+                        width: MediaQuery.sizeOf(context).width * 0.95,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            width: 2.0,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Icon(
+                                        Icons.fact_check_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
+                                        size: 24.0,
+                                      ),
+                                      Text(
+                                        'Check-In',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              fontSize: 18.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ].divide(const SizedBox(width: 5.0)),
+                                  ),
+                                  FlutterFlowIconButton(
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderRadius: 5.0,
+                                    borderWidth: 2.0,
+                                    buttonSize: 35.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    icon: Icon(
+                                      Icons.arrow_outward_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      size: 20.0,
+                                    ),
+                                    onPressed: () async {
+                                      context.pushNamed('checkIn');
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ].divide(const SizedBox(height: 20.0)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (true /* Warning: Trying to access variable not yet defined. */)
+                    StreamBuilder<List<NoticeRecord>>(
+                      stream: queryNoticeRecord(
+                        queryBuilder: (noticeRecord) => noticeRecord
+                            .where(
+                              'active',
+                              isEqualTo: true,
+                            )
+                            .orderBy('day'),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return const SizedBox(
+                            width: 0.0,
+                            height: 0.0,
+                            child: LoadingOffwhiteWidget(),
+                          );
+                        }
+                        List<NoticeRecord> columnNoticeRecordList =
+                            snapshot.data!;
+
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: List.generate(columnNoticeRecordList.length,
+                              (columnIndex) {
+                            final columnNoticeRecord =
+                                columnNoticeRecordList[columnIndex];
+                            return Visibility(
+                              visible: FFAppState()
+                                      .dismissNotice
+                                      .contains(columnNoticeRecord.noticeId) !=
+                                  true,
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width * 0.95,
+                                decoration: BoxDecoration(
+                                  color: columnNoticeRecord.color ?? FlutterFlowTheme.of(context).accent4,
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 15.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            FlutterFlowIconButton(
+                                              borderColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              borderRadius: 8.0,
+                                              borderWidth: 2.0,
+                                              buttonSize: 35.0,
+                                              icon: Icon(
+                                                Icons.close_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                size: 18.0,
+                                              ),
+                                              onPressed: () async {
+                                                FFAppState().addToDismissNotice(
+                                                    columnNoticeRecord
+                                                        .noticeId);
+                                                safeSetState(() {});
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Text(
+                                        columnNoticeRecord.message,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).divide(
+                            const SizedBox(height: 10.0),
+                            filterFn: (columnIndex) {
+                              final columnNoticeRecord =
+                                  columnNoticeRecordList[columnIndex];
+                              return FFAppState()
+                                      .dismissNotice
+                                      .contains(columnNoticeRecord.noticeId) !=
+                                  true;
+                            },
+                          ),
+                        ).animateOnPageLoad(
+                            animationsMap['columnOnPageLoadAnimation1']!);
+                      },
+                    ),
                   Container(
                     width: MediaQuery.sizeOf(context).width * 0.95,
+                    constraints: const BoxConstraints(
+                      minHeight: 380.0,
+                    ),
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.circular(15.0),
@@ -521,7 +780,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -547,11 +806,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           ),
                           StreamBuilder<List<ScheduleRecord>>(
                             stream: queryScheduleRecord(
-                              queryBuilder: (scheduleRecord) =>
-                                  scheduleRecord.where(
-                                'date',
-                                isGreaterThanOrEqualTo: getCurrentTimestamp,
-                              ),
+                              queryBuilder: (scheduleRecord) => scheduleRecord
+                                  .where(
+                                    'isProgram',
+                                    isEqualTo: false,
+                                  )
+                                  .orderBy('time'),
                               limit: 5,
                             ),
                             builder: (context, snapshot) {
@@ -559,18 +819,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 30.0,
-                                    height: 30.0,
-                                    child: SpinKitThreeBounce(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      size: 30.0,
-                                    ),
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    child: const LoadingWhiteWidget(),
                                   ),
                                 );
                               }
                               List<ScheduleRecord> columnScheduleRecordList =
                                   snapshot.data!;
+                              if (columnScheduleRecordList.isEmpty) {
+                                return const EmptyStateScheduleWidget();
+                              }
 
                               return Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -587,13 +846,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       if (!snapshot.hasData) {
                                         return Center(
                                           child: SizedBox(
-                                            width: 30.0,
-                                            height: 30.0,
+                                            width: 10.0,
+                                            height: 10.0,
                                             child: SpinKitThreeBounce(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 30.0,
+                                                      .primaryBackground,
+                                              size: 10.0,
                                             ),
                                           ),
                                         );
@@ -683,6 +942,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             padding: const EdgeInsets.all(10.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
@@ -710,34 +971,47 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           if (containerScheduleRecord
                                                                   .isProgram ==
                                                               false)
-                                                            Text(
-                                                              containerScheduleRecord
-                                                                  .type,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: () {
-                                                                      if (containerScheduleRecord
-                                                                          .active) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .accent3;
-                                                                      } else if (containerScheduleRecord
-                                                                          .isComplete) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .accent2;
-                                                                      } else {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .alternate;
-                                                                      }
-                                                                    }(),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    lineHeight:
-                                                                        1.0,
-                                                                  ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          5.0),
+                                                              child: Text(
+                                                                containerScheduleRecord
+                                                                    .type,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      color:
+                                                                          () {
+                                                                        if (containerScheduleRecord
+                                                                            .active) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .secondaryBackground;
+                                                                        } else if (containerScheduleRecord
+                                                                            .isComplete) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .accent2;
+                                                                        } else {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .primary;
+                                                                        }
+                                                                      }(),
+                                                                      fontSize:
+                                                                          12.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                    ),
+                                                              ),
                                                             ),
                                                           Text(
                                                             containerScheduleRecord
@@ -747,7 +1021,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Poppins',
+                                                                      'Inter',
                                                                   color: () {
                                                                     if (containerScheduleRecord
                                                                         .isComplete) {
@@ -766,12 +1040,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     }
                                                                   }(),
                                                                   fontSize:
-                                                                      18.0,
+                                                                      15.0,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w600,
+                                                                          .normal,
                                                                   lineHeight:
                                                                       1.2,
                                                                 ),
@@ -787,6 +1061,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               .end,
                                                       children: [
                                                         Text(
+                                                          containerScheduleRecord
+                                                              .day,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
+                                                        Text(
                                                           dateTimeFormat(
                                                             "jm",
                                                             containerScheduleRecord
@@ -800,7 +1087,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
-                                                                    'Poppins',
+                                                                    'Inter',
                                                                 color: () {
                                                                   if (containerScheduleRecord
                                                                       .isComplete) {
@@ -818,7 +1105,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                         .primaryText;
                                                                   }
                                                                 }(),
-                                                                fontSize: 16.0,
+                                                                fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
@@ -841,7 +1128,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     .divide(const SizedBox(height: 10.0))
                                     .addToStart(const SizedBox(height: 20.0))
                                     .addToEnd(const SizedBox(height: 20.0)),
-                              );
+                              ).animateOnPageLoad(
+                                  animationsMap['columnOnPageLoadAnimation2']!);
                             },
                           ),
                         ],
@@ -932,7 +1220,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   .bodyMedium
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Poppins',
+                                                                        'Inter',
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primaryText,
@@ -955,7 +1243,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   .bodyMedium
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Poppins',
+                                                                        'Inter',
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
@@ -1130,7 +1418,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
-                                                                          'Poppins',
+                                                                          'Inter',
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
                                                                           .primaryText,
@@ -1153,7 +1441,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
-                                                                          'Poppins',
+                                                                          'Inter',
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
                                                                           .secondaryText,
@@ -1198,7 +1486,61 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 size: 15.0,
                                               ),
                                               onPressed: () async {
-                                                context.pushNamed('conQuizzes');
+                                                var shouldSetState = false;
+                                                var confirmDialogResponse =
+                                                    await showDialog<bool>(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'You are about to leave the app'),
+                                                              content: const Text(
+                                                                  'You are leaving our site and we cannot be held responsible for the content of external websites.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                  child: const Text(
+                                                                      'Stay here'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                  child: const Text(
+                                                                      'Continue'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ) ??
+                                                        false;
+                                                if (confirmDialogResponse) {
+                                                  _model.quizLink =
+                                                      await queryQuizLinkRecordOnce(
+                                                    singleRecord: true,
+                                                  ).then((s) => s.firstOrNull);
+                                                  shouldSetState = true;
+                                                  unawaited(
+                                                    () async {
+                                                      await launchURL(
+                                                          _model.quizLink!.url);
+                                                    }(),
+                                                  );
+                                                } else {
+                                                  if (shouldSetState) {
+                                                    safeSetState(() {});
+                                                  }
+                                                  return;
+                                                }
+
+                                                if (shouldSetState) {
+                                                  safeSetState(() {});
+                                                }
                                               },
                                             ),
                                           ),
@@ -1303,7 +1645,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                           .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                'Poppins',
+                                                                                'Inter',
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).primaryText,
                                                                             fontSize:
@@ -1325,7 +1667,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                           .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                'Poppins',
+                                                                                'Inter',
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).secondaryText,
                                                                             fontSize:
@@ -1435,15 +1777,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
-                                                      width: 30.0,
-                                                      height: 30.0,
-                                                      child: SpinKitThreeBounce(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        size: 30.0,
-                                                      ),
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          1.0,
+                                                      child:
+                                                          const LoadingWhiteWidget(),
                                                     ),
                                                   );
                                                 }
@@ -1517,7 +1856,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -1540,21 +1879,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ],
                           ),
                           StreamBuilder<List<SpeakerRecord>>(
-                            stream: querySpeakerRecord(
-                              limit: 5,
+                            stream: FFAppState().speakersHome(
+                              requestFn: () => querySpeakerRecord(
+                                limit: 6,
+                              ),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 30.0,
-                                    height: 30.0,
-                                    child: SpinKitThreeBounce(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      size: 30.0,
-                                    ),
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    child: const LoadingWhiteWidget(),
                                   ),
                                 );
                               }
@@ -1578,13 +1915,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 30.0,
-                                              height: 30.0,
+                                              width: 10.0,
+                                              height: 10.0,
                                               child: SpinKitThreeBounce(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 30.0,
+                                                        .primaryBackground,
+                                                size: 10.0,
                                               ),
                                             ),
                                           );
@@ -1691,7 +2028,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Poppins',
+                                                                      'Inter',
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .primaryText,
@@ -1744,7 +2081,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Poppins',
+                                                                      'Inter',
                                                                   fontSize:
                                                                       10.0,
                                                                   letterSpacing:
@@ -1766,7 +2103,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       },
                                     );
                                   })
-                                          .divide(const SizedBox(width: 20.0))
+                                          .divide(const SizedBox(width: 8.0))
                                           .addToEnd(const SizedBox(width: 5.0)),
                                 ),
                               );
@@ -1797,11 +2134,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'MAPS',
+                                'REGIONAL CONFERENCE ‘24',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       letterSpacing: 0.0,
@@ -1823,7 +2160,45 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   size: 20.0,
                                 ),
                                 onPressed: () async {
-                                  context.pushNamed('conMap');
+                                  var confirmDialogResponse =
+                                      await showDialog<bool>(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                    'You are about to leave the app'),
+                                                content: const Text(
+                                                    'You are leaving our app and we cannot be held responsible for the content of external websites.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            false),
+                                                    child: const Text('Stay here'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            true),
+                                                    child: const Text('Continue'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ) ??
+                                          false;
+                                  if (confirmDialogResponse) {
+                                    unawaited(
+                                      () async {
+                                        await launchURL(
+                                            'https://curegionalconference.com/');
+                                      }(),
+                                    );
+                                  } else {
+                                    return;
+                                  }
                                 },
                               ),
                             ],
@@ -1852,6 +2227,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               children: [
                                 Container(
                                   width: MediaQuery.sizeOf(context).width * 1.0,
+                                  constraints: const BoxConstraints(
+                                    minHeight: 550.0,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -1879,7 +2257,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Poppins',
+                                                          fontFamily: 'Inter',
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -1892,83 +2270,112 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   1.0,
-                                          height: 100.0,
+                                          constraints: const BoxConstraints(
+                                            minHeight: 100.0,
+                                          ),
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                           ),
-                                          child: GridView(
-                                            padding: EdgeInsets.zero,
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              crossAxisSpacing: 10.0,
-                                              mainAxisSpacing: 5.0,
-                                              childAspectRatio: 2.0,
-                                            ),
-                                            primary: false,
-                                            scrollDirection: Axis.vertical,
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
                                             children: [
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  var confirmDialogResponse =
-                                                      await showDialog<bool>(
-                                                            context: context,
-                                                            builder:
-                                                                (alertDialogContext) {
-                                                              return AlertDialog(
-                                                                title: const Text(
-                                                                    'You are about to leave the app'),
-                                                                content: const Text(
-                                                                    'You are leaving our site and we cannot be held responsible for the content of external websites.'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            false),
-                                                                    child: const Text(
-                                                                        'Stay here'),
-                                                                  ),
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            true),
-                                                                    child: const Text(
-                                                                        'Continue'),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          ) ??
-                                                          false;
-                                                  if (confirmDialogResponse) {
-                                                    unawaited(
-                                                      () async {
-                                                        await launchURL(
-                                                            'https://www.gov.bb/');
-                                                      }(),
-                                                    );
-                                                  } else {
-                                                    return;
-                                                  }
-                                                },
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  child: Image.asset(
-                                                    'assets/images/unnamed-9.png',
-                                                    width: 100.0,
-                                                    height: 77.0,
-                                                    fit: BoxFit.contain,
-                                                  ),
+                                              Container(
+                                                constraints: const BoxConstraints(
+                                                  minHeight: 100.0,
+                                                ),
+                                                decoration: const BoxDecoration(),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        var confirmDialogResponse =
+                                                            await showDialog<
+                                                                    bool>(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (alertDialogContext) {
+                                                                    return AlertDialog(
+                                                                      title: const Text(
+                                                                          'You are about to leave the app'),
+                                                                      content: const Text(
+                                                                          'You are leaving our app and we cannot be held responsible for the content of external websites.'),
+                                                                      actions: [
+                                                                        TextButton(
+                                                                          onPressed: () => Navigator.pop(
+                                                                              alertDialogContext,
+                                                                              false),
+                                                                          child:
+                                                                              const Text('Stay here'),
+                                                                        ),
+                                                                        TextButton(
+                                                                          onPressed: () => Navigator.pop(
+                                                                              alertDialogContext,
+                                                                              true),
+                                                                          child:
+                                                                              const Text('Continue'),
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                ) ??
+                                                                false;
+                                                        if (confirmDialogResponse) {
+                                                          unawaited(
+                                                            () async {
+                                                              await launchURL(
+                                                                  'https://www.gov.bb/');
+                                                            }(),
+                                                          );
+                                                        } else {
+                                                          return;
+                                                        }
+                                                      },
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.asset(
+                                                          'assets/images/unnamed-9.png',
+                                                          width: () {
+                                                            if ((MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width >=
+                                                                    620.0) &&
+                                                                (MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width <
+                                                                    900.0)) {
+                                                              return 90;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width >=
+                                                                900.0) {
+                                                              return 100;
+                                                            } else {
+                                                              return 80;
+                                                            }
+                                                          }()
+                                                              .toDouble(),
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                               InkWell(
@@ -1987,7 +2394,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                 title: const Text(
                                                                     'You are about to leave the app'),
                                                                 content: const Text(
-                                                                    'You are leaving our site and we cannot be held responsible for the content of external websites.'),
+                                                                    'You are leaving our app and we cannot be held responsible for the content of external websites.'),
                                                                 actions: [
                                                                   TextButton(
                                                                     onPressed: () =>
@@ -2027,8 +2434,27 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           8.0),
                                                   child: Image.asset(
                                                     'assets/images/New-Logo-1024x558.png',
-                                                    width: 100.0,
-                                                    height: 77.0,
+                                                    width: () {
+                                                      if ((MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width >=
+                                                              620.0) &&
+                                                          (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              900.0)) {
+                                                        return 150;
+                                                      } else if (MediaQuery
+                                                                  .sizeOf(
+                                                                      context)
+                                                              .width >=
+                                                          900.0) {
+                                                        return 200;
+                                                      } else {
+                                                        return 150;
+                                                      }
+                                                    }()
+                                                        .toDouble(),
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
@@ -2040,186 +2466,100 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   1.0,
-                                          height: 240.0,
+                                          height: 450.0,
+                                          constraints: const BoxConstraints(
+                                            minHeight: 240.0,
+                                          ),
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                           ),
                                           child: StreamBuilder<
                                               List<SponsorRecord>>(
-                                            stream: querySponsorRecord(),
+                                            stream: FFAppState().sponsors(
+                                              requestFn: () =>
+                                                  querySponsorRecord(
+                                                queryBuilder: (sponsorRecord) =>
+                                                    sponsorRecord
+                                                        .orderBy('indexNumber'),
+                                              ),
+                                            ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 30.0,
-                                                    height: 30.0,
+                                                    width: 10.0,
+                                                    height: 10.0,
                                                     child: SpinKitThreeBounce(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 30.0,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
                                                 );
                                               }
                                               List<SponsorRecord>
-                                                  gridViewSponsorRecordList =
+                                                  staggeredViewSponsorRecordList =
                                                   snapshot.data!;
 
-                                              return GridView.builder(
-                                                padding: EdgeInsets.zero,
+                                              return MasonryGridView.builder(
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
                                                 gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 3,
-                                                  crossAxisSpacing: 10.0,
-                                                  mainAxisSpacing: 5.0,
-                                                  childAspectRatio: 1.5,
+                                                    SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: () {
+                                                    if ((MediaQuery.sizeOf(
+                                                                    context)
+                                                                .width >=
+                                                            620.0) &&
+                                                        (MediaQuery.sizeOf(
+                                                                    context)
+                                                                .width <
+                                                            900.0)) {
+                                                      return 4;
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width >=
+                                                        900.0) {
+                                                      return 6;
+                                                    } else {
+                                                      return 3;
+                                                    }
+                                                  }(),
                                                 ),
-                                                primary: false,
-                                                scrollDirection: Axis.vertical,
+                                                crossAxisSpacing: 10.0,
+                                                mainAxisSpacing: 5.0,
                                                 itemCount:
-                                                    gridViewSponsorRecordList
+                                                    staggeredViewSponsorRecordList
                                                         .length,
-                                                itemBuilder:
-                                                    (context, gridViewIndex) {
-                                                  final gridViewSponsorRecord =
-                                                      gridViewSponsorRecordList[
-                                                          gridViewIndex];
-                                                  return StreamBuilder<
-                                                      SponsorRecord>(
-                                                    stream: SponsorRecord
-                                                        .getDocument(
-                                                            gridViewSponsorRecord
-                                                                .reference),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 30.0,
-                                                            height: 30.0,
-                                                            child:
-                                                                SpinKitThreeBounce(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              size: 30.0,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-
-                                                      final imageSponsorRecord =
-                                                          snapshot.data!;
-
-                                                      return InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          var confirmDialogResponse =
-                                                              await showDialog<
-                                                                      bool>(
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (alertDialogContext) {
-                                                                      return AlertDialog(
-                                                                        title: const Text(
-                                                                            'You are about to leave the app'),
-                                                                        content:
-                                                                            const Text('You are leaving our app and we cannot be held responsible for the content of external websites.'),
-                                                                        actions: [
-                                                                          TextButton(
-                                                                            onPressed: () =>
-                                                                                Navigator.pop(alertDialogContext, false),
-                                                                            child:
-                                                                                const Text('Stay here'),
-                                                                          ),
-                                                                          TextButton(
-                                                                            onPressed: () =>
-                                                                                Navigator.pop(alertDialogContext, true),
-                                                                            child:
-                                                                                const Text('Continue'),
-                                                                          ),
-                                                                        ],
-                                                                      );
-                                                                    },
-                                                                  ) ??
-                                                                  false;
-                                                          if (confirmDialogResponse) {
-                                                            if (FFAppState()
-                                                                    .rewardCollected
-                                                                    .contains(
-                                                                        imageSponsorRecord
-                                                                            .rewardID) ==
-                                                                true) {
-                                                              unawaited(
-                                                                () async {
-                                                                  await launchURL(
-                                                                      imageSponsorRecord
-                                                                          .sponsorUrl);
-                                                                }(),
-                                                              );
-                                                            } else {
-                                                              FFAppState().addToRewardCollected(
-                                                                  imageSponsorRecord
-                                                                      .rewardID);
-                                                              safeSetState(
-                                                                  () {});
-
-                                                              await currentUserReference!
-                                                                  .update({
-                                                                ...mapToFirestore(
-                                                                  {
-                                                                    'rewardPoints':
-                                                                        FieldValue
-                                                                            .increment(5),
-                                                                  },
-                                                                ),
-                                                              });
-                                                              await launchURL(
-                                                                  imageSponsorRecord
-                                                                      .sponsorUrl);
-                                                            }
-                                                          } else {
-                                                            return;
-                                                          }
-                                                        },
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            fadeInDuration:
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        500),
-                                                            fadeOutDuration:
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        500),
-                                                            imageUrl:
-                                                                imageSponsorRecord
-                                                                    .image,
-                                                            width: 100.0,
-                                                            height: 77.0,
-                                                            fit: BoxFit.contain,
-                                                          ),
+                                                itemBuilder: (context,
+                                                    staggeredViewIndex) {
+                                                  final staggeredViewSponsorRecord =
+                                                      staggeredViewSponsorRecordList[
+                                                          staggeredViewIndex];
+                                                  return Container(
+                                                    width: 150.0,
+                                                    height: 100.0,
+                                                    constraints: const BoxConstraints(
+                                                      minHeight: 50.0,
+                                                      maxWidth: 150.0,
+                                                      maxHeight: 100.0,
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.contain,
+                                                        image:
+                                                            CachedNetworkImageProvider(
+                                                          staggeredViewSponsorRecord
+                                                              .image,
                                                         ),
-                                                      );
-                                                    },
+                                                      ),
+                                                    ),
                                                   );
                                                 },
                                               );
@@ -2232,7 +2572,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 400.0, 0.0, 0.0),
+                                      0.0, 500.0, 0.0, 0.0),
                                   child: Container(
                                     width:
                                         MediaQuery.sizeOf(context).width * 1.0,
@@ -2258,7 +2598,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Poppins',
+                                                          fontFamily: 'Inter',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondary,
@@ -2285,7 +2625,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Poppins',
+                                                  fontFamily: 'Inter',
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryBackground,

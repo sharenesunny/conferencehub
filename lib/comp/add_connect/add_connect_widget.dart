@@ -53,11 +53,11 @@ class _AddConnectWidgetState extends State<AddConnectWidget> {
         if (!snapshot.hasData) {
           return Center(
             child: SizedBox(
-              width: 30.0,
-              height: 30.0,
+              width: 10.0,
+              height: 10.0,
               child: SpinKitThreeBounce(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 30.0,
+                color: FlutterFlowTheme.of(context).primaryBackground,
+                size: 10.0,
               ),
             ),
           );
@@ -136,15 +136,16 @@ class _AddConnectWidgetState extends State<AddConnectWidget> {
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Inter',
                                   letterSpacing: 0.0,
                                 ),
                             hintText: 'Enter the connect code',
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Inter',
                                   color: FlutterFlowTheme.of(context).accent2,
+                                  fontSize: 25.0,
                                   letterSpacing: 0.0,
                                 ),
                             enabledBorder: OutlineInputBorder(
@@ -181,9 +182,11 @@ class _AddConnectWidgetState extends State<AddConnectWidget> {
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Inter',
+                                    fontSize: 25.0,
                                     letterSpacing: 0.0,
                                   ),
+                          textAlign: TextAlign.center,
                           cursorColor: FlutterFlowTheme.of(context).primaryText,
                           validator: _model.textControllerValidator
                               .asValidator(context),
@@ -217,7 +220,7 @@ class _AddConnectWidgetState extends State<AddConnectWidget> {
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Inter',
                                     color: Colors.white,
                                     letterSpacing: 0.0,
                                   ),

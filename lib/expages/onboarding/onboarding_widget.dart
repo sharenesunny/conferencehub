@@ -64,7 +64,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Inter',
                         color: Colors.white,
                         letterSpacing: 0.0,
                       ),

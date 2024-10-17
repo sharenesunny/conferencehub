@@ -115,7 +115,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                             letterSpacing: 0.0,
@@ -124,7 +124,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             color: const Color(0xFF4E63A7),
                                             letterSpacing: 0.0,
                                           ),
@@ -174,7 +174,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           letterSpacing: 0.0,
@@ -199,7 +199,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                             letterSpacing: 0.0,
@@ -207,7 +207,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
                                                 .alternate,
                                             letterSpacing: 0.0,
@@ -274,7 +274,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           letterSpacing: 0.0,
@@ -314,7 +314,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Inter',
                                           color: const Color(0xFF9CADCC),
                                           fontSize: 12.0,
                                           letterSpacing: 0.0,
@@ -415,7 +415,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       letterSpacing: 0.0,
@@ -439,7 +439,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       letterSpacing: 0.0,
@@ -496,7 +496,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         color: FlutterFlowTheme.of(context)
                                             .accent3,
                                         letterSpacing: 0.0,

@@ -25,7 +25,7 @@ service cloud.firestore {
     match /profile/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if false;
+      allow write: if true;
       allow delete: if false;
     }
 
@@ -42,18 +42,6 @@ service cloud.firestore {
       allow write: if false;
       allow delete: if false;
     }
-
-    match /conQuizzes/{parent}/quizQuestions/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if false;
-      allow delete: if false;
-    }
-
-    match /{path=**}/quizQuestions/{document} {
-      allow read: if true;
-    }
-
 
     match /speaker/{document} {
       allow create: if true;
@@ -83,23 +71,56 @@ service cloud.firestore {
       allow delete: if request.auth.uid == document;
     }
 
-    match /schedule/{parent}/chat/{document} {
+    match /aboutBarbados/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if false;
+    }
+
+    match /checkedIn/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if false;
+    }
+
+    match /schedule/{parent}/questionAnswers/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if false;
+    }
+
+    match /{path=**}/questionAnswers/{document} {
+      allow read: if true;
+    }
+
+
+    match /schedule/{parent}/polls/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
 
-    match /{path=**}/chat/{document} {
+    match /{path=**}/polls/{document} {
       allow read: if true;
     }
 
 
-    match /aboutBarbados/{document} {
+    match /activityFeed/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
-      allow delete: if false;
+      allow delete: if true;
+    }
+
+    match /quizLink/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
     }
   }
 }

@@ -1,4 +1,6 @@
 import '/backend/backend.dart';
+import '/comp/empty_state_no_speakers/empty_state_no_speakers_widget.dart';
+import '/comp/loading_offwhite/loading_offwhite_widget.dart';
 import '/components/menu_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -147,7 +149,7 @@ class _SpeakersWidgetState extends State<SpeakersWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .displayMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       fontSize: 14.0,
@@ -167,208 +169,470 @@ class _SpeakersWidgetState extends State<SpeakersWidget> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 0.95,
-                    decoration: const BoxDecoration(),
-                    child: StreamBuilder<List<SpeakerRecord>>(
-                      stream: querySpeakerRecord(
-                        queryBuilder: (speakerRecord) =>
-                            speakerRecord.orderBy('name'),
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 30.0,
-                              height: 30.0,
-                              child: SpinKitThreeBounce(
-                                color: FlutterFlowTheme.of(context).primary,
-                                size: 30.0,
-                              ),
+                  Builder(
+                    builder: (context) {
+                      if (MediaQuery.sizeOf(context).width < 650.0) {
+                        return Container(
+                          width: MediaQuery.sizeOf(context).width * 0.95,
+                          decoration: const BoxDecoration(),
+                          child: StreamBuilder<List<SpeakerRecord>>(
+                            stream: querySpeakerRecord(
+                              queryBuilder: (speakerRecord) =>
+                                  speakerRecord.orderBy('name'),
                             ),
-                          );
-                        }
-                        List<SpeakerRecord> wrapSpeakerRecordList =
-                            snapshot.data!;
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return const LoadingOffwhiteWidget();
+                              }
+                              List<SpeakerRecord> wrapSpeakerRecordList =
+                                  snapshot.data!;
+                              if (wrapSpeakerRecordList.isEmpty) {
+                                return const EmptyStateNoSpeakersWidget();
+                              }
 
-                        return Wrap(
-                          spacing: 15.0,
-                          runSpacing: 10.0,
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          direction: Axis.horizontal,
-                          runAlignment: WrapAlignment.start,
-                          verticalDirection: VerticalDirection.down,
-                          clipBehavior: Clip.none,
-                          children: List.generate(wrapSpeakerRecordList.length,
-                              (wrapIndex) {
-                            final wrapSpeakerRecord =
-                                wrapSpeakerRecordList[wrapIndex];
-                            return StreamBuilder<SpeakerRecord>(
-                              stream: SpeakerRecord.getDocument(
-                                  wrapSpeakerRecord.reference),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 30.0,
-                                      height: 30.0,
-                                      child: SpinKitThreeBounce(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 30.0,
-                                      ),
-                                    ),
-                                  );
-                                }
-
-                                final containerSpeakerRecord = snapshot.data!;
-
-                                return InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    context.pushNamed(
-                                      'speakerInfoHome',
-                                      queryParameters: {
-                                        'homeSpeaker': serializeParam(
-                                          containerSpeakerRecord.reference,
-                                          ParamType.DocumentReference,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Container(
-                                      width: 175.0,
-                                      constraints: const BoxConstraints(
-                                        minHeight: 240.0,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          width: 2.0,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius: const BorderRadius.only(
-                                              bottomLeft: Radius.circular(0.0),
-                                              bottomRight: Radius.circular(0.0),
-                                              topLeft: Radius.circular(10.0),
-                                              topRight: Radius.circular(10.0),
-                                            ),
-                                            child: CachedNetworkImage(
-                                              fadeInDuration:
-                                                  const Duration(milliseconds: 500),
-                                              fadeOutDuration:
-                                                  const Duration(milliseconds: 500),
-                                              imageUrl:
-                                                  containerSpeakerRecord.image,
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
-                                              height: 160.0,
-                                              fit: BoxFit.cover,
+                              return Wrap(
+                                spacing: 15.0,
+                                runSpacing: 10.0,
+                                alignment: WrapAlignment.spaceEvenly,
+                                crossAxisAlignment: WrapCrossAlignment.start,
+                                direction: Axis.horizontal,
+                                runAlignment: WrapAlignment.start,
+                                verticalDirection: VerticalDirection.down,
+                                clipBehavior: Clip.none,
+                                children: List.generate(
+                                    wrapSpeakerRecordList.length, (wrapIndex) {
+                                  final wrapSpeakerRecord =
+                                      wrapSpeakerRecordList[wrapIndex];
+                                  return StreamBuilder<SpeakerRecord>(
+                                    stream: SpeakerRecord.getDocument(
+                                        wrapSpeakerRecord.reference),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 10.0,
+                                            height: 10.0,
+                                            child: SpinKitThreeBounce(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              size: 10.0,
                                             ),
                                           ),
-                                          Divider(
-                                            height: 1.0,
-                                            thickness: 2.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                          Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                1.0,
-                                            decoration: const BoxDecoration(
-                                              color: Color(0xFFECECEC),
+                                        );
+                                      }
+
+                                      final containerSpeakerRecord =
+                                          snapshot.data!;
+
+                                      return InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'speakerInfoHome',
+                                            queryParameters: {
+                                              'homeSpeaker': serializeParam(
+                                                containerSpeakerRecord
+                                                    .reference,
+                                                ParamType.DocumentReference,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: Container(
+                                            width: 175.0,
+                                            constraints: const BoxConstraints(
+                                              minHeight: 240.0,
                                             ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5.0),
-                                              child: Text(
-                                                containerSpeakerRecord.name,
-                                                textAlign: TextAlign.center,
-                                                maxLines: 2,
-                                                style:
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              border: Border.all(
+                                                color:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                                        .primaryText,
+                                                width: 2.0,
                                               ),
                                             ),
-                                          ),
-                                          Divider(
-                                            height: 1.0,
-                                            thickness: 2.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                          Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                1.0,
-                                            height: 40.0,
-                                            decoration: const BoxDecoration(),
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 5.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    containerSpeakerRecord
-                                                        .title,
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 2,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          fontSize: 10.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(0.0),
+                                                    bottomRight:
+                                                        Radius.circular(0.0),
+                                                    topLeft:
+                                                        Radius.circular(10.0),
+                                                    topRight:
+                                                        Radius.circular(10.0),
                                                   ),
-                                                ],
-                                              ),
+                                                  child: CachedNetworkImage(
+                                                    fadeInDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    fadeOutDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    imageUrl:
+                                                        containerSpeakerRecord
+                                                            .image,
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        1.0,
+                                                    height: 160.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                Divider(
+                                                  height: 1.0,
+                                                  thickness: 2.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                                Container(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          1.0,
+                                                  decoration: const BoxDecoration(
+                                                    color: Color(0xFFECECEC),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5.0),
+                                                    child: Text(
+                                                      containerSpeakerRecord
+                                                          .name,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      maxLines: 2,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Divider(
+                                                  height: 1.0,
+                                                  thickness: 2.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                                Container(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          1.0,
+                                                  height: 40.0,
+                                                  decoration: const BoxDecoration(),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(5.0, 0.0,
+                                                                5.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          containerSpeakerRecord
+                                                              .title,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          maxLines: 2,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                fontSize: 10.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }),
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          width: MediaQuery.sizeOf(context).width * 0.95,
+                          decoration: const BoxDecoration(),
+                          child: StreamBuilder<List<SpeakerRecord>>(
+                            stream: querySpeakerRecord(
+                              queryBuilder: (speakerRecord) =>
+                                  speakerRecord.orderBy('name'),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 10.0,
+                                    height: 10.0,
+                                    child: SpinKitThreeBounce(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 10.0,
                                     ),
                                   ),
                                 );
-                              },
-                            );
-                          }),
+                              }
+                              List<SpeakerRecord> wrapSpeakerRecordList =
+                                  snapshot.data!;
+
+                              return Wrap(
+                                spacing:
+                                    MediaQuery.sizeOf(context).width > 650.0
+                                        ? 20.0
+                                        : 15.0,
+                                runSpacing: 10.0,
+                                alignment: WrapAlignment.start,
+                                crossAxisAlignment: WrapCrossAlignment.start,
+                                direction: Axis.horizontal,
+                                runAlignment: WrapAlignment.start,
+                                verticalDirection: VerticalDirection.down,
+                                clipBehavior: Clip.none,
+                                children: List.generate(
+                                    wrapSpeakerRecordList.length, (wrapIndex) {
+                                  final wrapSpeakerRecord =
+                                      wrapSpeakerRecordList[wrapIndex];
+                                  return StreamBuilder<SpeakerRecord>(
+                                    stream: SpeakerRecord.getDocument(
+                                        wrapSpeakerRecord.reference),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 10.0,
+                                            height: 10.0,
+                                            child: SpinKitThreeBounce(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              size: 10.0,
+                                            ),
+                                          ),
+                                        );
+                                      }
+
+                                      final containerSpeakerRecord =
+                                          snapshot.data!;
+
+                                      return InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'speakerInfoHome',
+                                            queryParameters: {
+                                              'homeSpeaker': serializeParam(
+                                                containerSpeakerRecord
+                                                    .reference,
+                                                ParamType.DocumentReference,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: Container(
+                                            width: 175.0,
+                                            constraints: const BoxConstraints(
+                                              minHeight: 240.0,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              border: Border.all(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                width: 2.0,
+                                              ),
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(0.0),
+                                                    bottomRight:
+                                                        Radius.circular(0.0),
+                                                    topLeft:
+                                                        Radius.circular(10.0),
+                                                    topRight:
+                                                        Radius.circular(10.0),
+                                                  ),
+                                                  child: CachedNetworkImage(
+                                                    fadeInDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    fadeOutDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    imageUrl:
+                                                        containerSpeakerRecord
+                                                            .image,
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        1.0,
+                                                    height: 160.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                Divider(
+                                                  height: 1.0,
+                                                  thickness: 2.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                                Container(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          1.0,
+                                                  decoration: const BoxDecoration(
+                                                    color: Color(0xFFECECEC),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5.0),
+                                                    child: Text(
+                                                      containerSpeakerRecord
+                                                          .name,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      maxLines: 2,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Divider(
+                                                  height: 1.0,
+                                                  thickness: 2.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                                Container(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          1.0,
+                                                  height: 40.0,
+                                                  decoration: const BoxDecoration(),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(5.0, 0.0,
+                                                                5.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          containerSpeakerRecord
+                                                              .title,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          maxLines: 2,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                fontSize: 10.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }),
+                              );
+                            },
+                          ),
                         );
-                      },
-                    ),
+                      }
+                    },
                   ),
                 ]
                     .divide(const SizedBox(height: 8.0))

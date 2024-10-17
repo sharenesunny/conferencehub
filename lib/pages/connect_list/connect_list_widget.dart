@@ -1,6 +1,8 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/comp/add_connect/add_connect_widget.dart';
+import '/comp/empty_state_connect/empty_state_connect_widget.dart';
+import '/comp/loading_offwhite/loading_offwhite_widget.dart';
 import '/components/menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -154,7 +156,7 @@ class _ConnectListWidgetState extends State<ConnectListWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .displayMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       fontSize: 14.0,
@@ -188,7 +190,7 @@ class _ConnectListWidgetState extends State<ConnectListWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Inter',
                                   color: const Color(0xFF544304),
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
@@ -202,7 +204,7 @@ class _ConnectListWidgetState extends State<ConnectListWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     fontSize: 16.0,
@@ -232,7 +234,7 @@ class _ConnectListWidgetState extends State<ConnectListWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Inter',
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
@@ -279,20 +281,16 @@ class _ConnectListWidgetState extends State<ConnectListWidget> {
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 30.0,
-                            height: 30.0,
-                            child: SpinKitThreeBounce(
-                              color: FlutterFlowTheme.of(context).primary,
-                              size: 30.0,
-                            ),
-                          ),
-                        );
+                        return const LoadingOffwhiteWidget();
                       }
                       List<UsersRecord> columnUsersRecordList = snapshot.data!
                           .where((u) => u.uid != currentUserUid)
                           .toList();
+                      if (columnUsersRecordList.isEmpty) {
+                        return const Center(
+                          child: EmptyStateConnectWidget(),
+                        );
+                      }
 
                       return Column(
                         mainAxisSize: MainAxisSize.max,
@@ -308,12 +306,12 @@ class _ConnectListWidgetState extends State<ConnectListWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 30.0,
-                                    height: 30.0,
+                                    width: 10.0,
+                                    height: 10.0,
                                     child: SpinKitThreeBounce(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      size: 30.0,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 10.0,
                                     ),
                                   ),
                                 );
@@ -337,9 +335,66 @@ class _ConnectListWidgetState extends State<ConnectListWidget> {
                                     }.withoutNulls,
                                   );
                                 },
+                                onLongPress: () async {
+                                  var confirmDialogResponse =
+                                      await showDialog<bool>(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: const Text('Deleting Connect'),
+                                                content: const Text(
+                                                    'Are you sure you want to delete this connection?'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            false),
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            true),
+                                                    child: const Text('Yes'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ) ??
+                                          false;
+                                  if (confirmDialogResponse) {
+                                    FFAppState().removeFromConnectList(
+                                        containerUsersRecord.connectCode);
+                                    safeSetState(() {});
+                                    ScaffoldMessenger.of(context)
+                                        .clearSnackBars();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Connect removed!',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: const Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
+                                  } else {
+                                    return;
+                                  }
+                                },
                                 child: Container(
                                   width:
                                       MediaQuery.sizeOf(context).width * 0.95,
+                                  constraints: const BoxConstraints(
+                                    minHeight: 80.0,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -392,42 +447,57 @@ class _ConnectListWidgetState extends State<ConnectListWidget> {
                                                   ),
                                                 ),
                                               ),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    containerUsersRecord
-                                                        .displayName,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          fontSize: 16.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          lineHeight: 1.2,
-                                                        ),
-                                                  ),
-                                                  Text(
-                                                    columnUsersRecord.title,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ],
+                                              Container(
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        0.687,
+                                                decoration: const BoxDecoration(),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      containerUsersRecord
+                                                          .displayName,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            fontSize: 16.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            lineHeight: 1.2,
+                                                          ),
+                                                    ),
+                                                    if (containerUsersRecord
+                                                                .title !=
+                                                            '')
+                                                      Text(
+                                                        columnUsersRecord.title,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                      ),
+                                                  ],
+                                                ),
                                               ),
                                             ].divide(const SizedBox(width: 15.0)),
                                           ),

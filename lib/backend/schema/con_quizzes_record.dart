@@ -20,41 +20,56 @@ class ConQuizzesRecord extends FirestoreRecord {
   String get quizID => _quizID ?? '';
   bool hasQuizID() => _quizID != null;
 
-  // "name" field.
-  String? _name;
-  String get name => _name ?? '';
-  bool hasName() => _name != null;
+  // "question" field.
+  String? _question;
+  String get question => _question ?? '';
+  bool hasQuestion() => _question != null;
 
-  // "description" field.
-  String? _description;
-  String get description => _description ?? '';
-  bool hasDescription() => _description != null;
+  // "option1" field.
+  String? _option1;
+  String get option1 => _option1 ?? '';
+  bool hasOption1() => _option1 != null;
 
-  // "questionNumber" field.
-  int? _questionNumber;
-  int get questionNumber => _questionNumber ?? 0;
-  bool hasQuestionNumber() => _questionNumber != null;
+  // "option2" field.
+  String? _option2;
+  String get option2 => _option2 ?? '';
+  bool hasOption2() => _option2 != null;
 
-  // "questions" field.
-  List<QuestionStruct>? _questions;
-  List<QuestionStruct> get questions => _questions ?? const [];
-  bool hasQuestions() => _questions != null;
+  // "votedop1" field.
+  List<DocumentReference>? _votedop1;
+  List<DocumentReference> get votedop1 => _votedop1 ?? const [];
+  bool hasVotedop1() => _votedop1 != null;
 
-  // "totalPoints" field.
-  int? _totalPoints;
-  int get totalPoints => _totalPoints ?? 0;
-  bool hasTotalPoints() => _totalPoints != null;
+  // "votedop2" field.
+  List<DocumentReference>? _votedop2;
+  List<DocumentReference> get votedop2 => _votedop2 ?? const [];
+  bool hasVotedop2() => _votedop2 != null;
+
+  // "active" field.
+  bool? _active;
+  bool get active => _active ?? false;
+  bool hasActive() => _active != null;
+
+  // "votedUser" field.
+  List<DocumentReference>? _votedUser;
+  List<DocumentReference> get votedUser => _votedUser ?? const [];
+  bool hasVotedUser() => _votedUser != null;
+
+  // "selectedOption" field.
+  Color? _selectedOption;
+  Color? get selectedOption => _selectedOption;
+  bool hasSelectedOption() => _selectedOption != null;
 
   void _initializeFields() {
     _quizID = snapshotData['quizID'] as String?;
-    _name = snapshotData['name'] as String?;
-    _description = snapshotData['description'] as String?;
-    _questionNumber = castToType<int>(snapshotData['questionNumber']);
-    _questions = getStructList(
-      snapshotData['questions'],
-      QuestionStruct.fromMap,
-    );
-    _totalPoints = castToType<int>(snapshotData['totalPoints']);
+    _question = snapshotData['question'] as String?;
+    _option1 = snapshotData['option1'] as String?;
+    _option2 = snapshotData['option2'] as String?;
+    _votedop1 = getDataList(snapshotData['votedop1']);
+    _votedop2 = getDataList(snapshotData['votedop2']);
+    _active = snapshotData['active'] as bool?;
+    _votedUser = getDataList(snapshotData['votedUser']);
+    _selectedOption = getSchemaColor(snapshotData['selectedOption']);
   }
 
   static CollectionReference get collection =>
@@ -93,18 +108,20 @@ class ConQuizzesRecord extends FirestoreRecord {
 
 Map<String, dynamic> createConQuizzesRecordData({
   String? quizID,
-  String? name,
-  String? description,
-  int? questionNumber,
-  int? totalPoints,
+  String? question,
+  String? option1,
+  String? option2,
+  bool? active,
+  Color? selectedOption,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'quizID': quizID,
-      'name': name,
-      'description': description,
-      'questionNumber': questionNumber,
-      'totalPoints': totalPoints,
+      'question': question,
+      'option1': option1,
+      'option2': option2,
+      'active': active,
+      'selectedOption': selectedOption,
     }.withoutNulls,
   );
 
@@ -118,21 +135,27 @@ class ConQuizzesRecordDocumentEquality implements Equality<ConQuizzesRecord> {
   bool equals(ConQuizzesRecord? e1, ConQuizzesRecord? e2) {
     const listEquality = ListEquality();
     return e1?.quizID == e2?.quizID &&
-        e1?.name == e2?.name &&
-        e1?.description == e2?.description &&
-        e1?.questionNumber == e2?.questionNumber &&
-        listEquality.equals(e1?.questions, e2?.questions) &&
-        e1?.totalPoints == e2?.totalPoints;
+        e1?.question == e2?.question &&
+        e1?.option1 == e2?.option1 &&
+        e1?.option2 == e2?.option2 &&
+        listEquality.equals(e1?.votedop1, e2?.votedop1) &&
+        listEquality.equals(e1?.votedop2, e2?.votedop2) &&
+        e1?.active == e2?.active &&
+        listEquality.equals(e1?.votedUser, e2?.votedUser) &&
+        e1?.selectedOption == e2?.selectedOption;
   }
 
   @override
   int hash(ConQuizzesRecord? e) => const ListEquality().hash([
         e?.quizID,
-        e?.name,
-        e?.description,
-        e?.questionNumber,
-        e?.questions,
-        e?.totalPoints
+        e?.question,
+        e?.option1,
+        e?.option2,
+        e?.votedop1,
+        e?.votedop2,
+        e?.active,
+        e?.votedUser,
+        e?.selectedOption
       ]);
 
   @override

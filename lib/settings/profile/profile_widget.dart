@@ -42,10 +42,12 @@ class _ProfileWidgetState extends State<ProfileWidget>
         TextEditingController(text: currentUserDisplayName);
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
+    _model.textController2 ??= TextEditingController(
+        text: valueOrDefault(currentUserDocument?.job, ''));
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    _model.textController3 ??= TextEditingController();
+    _model.textController3 ??= TextEditingController(
+        text: valueOrDefault(currentUserDocument?.company, ''));
     _model.textFieldFocusNode3 ??= FocusNode();
 
     _model.textController4 ??= TextEditingController(text: currentUserEmail);
@@ -54,10 +56,12 @@ class _ProfileWidgetState extends State<ProfileWidget>
     _model.textController5 ??= TextEditingController(text: currentPhoneNumber);
     _model.textFieldFocusNode5 ??= FocusNode();
 
-    _model.textController6 ??= TextEditingController();
+    _model.textController6 ??= TextEditingController(
+        text: valueOrDefault(currentUserDocument?.bio, ''));
     _model.textFieldFocusNode6 ??= FocusNode();
 
-    _model.textController7 ??= TextEditingController();
+    _model.textController7 ??= TextEditingController(
+        text: valueOrDefault(currentUserDocument?.country, ''));
     _model.textFieldFocusNode7 ??= FocusNode();
 
     animationsMap.addAll({
@@ -474,7 +478,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Inter',
                                     color: const Color(0xFF544304),
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
@@ -488,7 +492,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 16.0,
@@ -534,7 +538,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -544,7 +548,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
                                                 .accent2,
                                             letterSpacing: 0.0,
@@ -588,14 +592,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
-                                  hintText: 'example@mail.com',
+                                  hintText: 'not set',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
                                   enabledBorder: OutlineInputBorder(
@@ -635,7 +639,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
                                 cursorColor:
@@ -645,144 +649,148 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            child: TextFormField(
-                              controller: _model.textController2,
-                              focusNode: _model.textFieldFocusNode2,
-                              autofocus: false,
-                              readOnly: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelText: 'Job Title',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
+                          AuthUserStreamWidget(
+                            builder: (context) => SizedBox(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              child: TextFormField(
+                                controller: _model.textController2,
+                                focusNode: _model.textFieldFocusNode2,
+                                autofocus: false,
+                                readOnly: true,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelText: 'Job Title',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintText: 'not set',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
-                                hintText: 'example@mail.com',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                cursorColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                validator: _model.textController2Validator
+                                    .asValidator(context),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    letterSpacing: 0.0,
-                                  ),
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              validator: _model.textController2Validator
-                                  .asValidator(context),
                             ),
                           ),
-                          SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            child: TextFormField(
-                              controller: _model.textController3,
-                              focusNode: _model.textFieldFocusNode3,
-                              autofocus: false,
-                              readOnly: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelText: 'Company',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
+                          AuthUserStreamWidget(
+                            builder: (context) => SizedBox(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              child: TextFormField(
+                                controller: _model.textController3,
+                                focusNode: _model.textFieldFocusNode3,
+                                autofocus: false,
+                                readOnly: true,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelText: 'Company',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintText: 'not set',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
-                                hintText: 'example@mail.com',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                cursorColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                validator: _model.textController3Validator
+                                    .asValidator(context),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    letterSpacing: 0.0,
-                                  ),
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              validator: _model.textController3Validator
-                                  .asValidator(context),
                             ),
                           ),
                           SizedBox(
@@ -799,14 +807,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
-                                hintText: 'example@mail.com',
+                                hintText: 'not set',
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
                                 enabledBorder: OutlineInputBorder(
@@ -846,7 +854,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
                               cursorColor:
@@ -870,14 +878,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
-                                  hintText: '1246-123-4567',
+                                  hintText: 'not set',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
                                   enabledBorder: OutlineInputBorder(
@@ -917,7 +925,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
                                 cursorColor:
@@ -927,182 +935,304 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            child: TextFormField(
-                              controller: _model.textController6,
-                              focusNode: _model.textFieldFocusNode6,
-                              autofocus: false,
-                              readOnly: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelText: 'Bio',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
+                          AuthUserStreamWidget(
+                            builder: (context) => SizedBox(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              child: TextFormField(
+                                controller: _model.textController6,
+                                focusNode: _model.textFieldFocusNode6,
+                                autofocus: false,
+                                readOnly: true,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelText: 'Bio',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintText: 'write something about yourself...',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
-                                hintText: 'write something about yourself...',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                maxLines: null,
+                                minLines: 5,
+                                cursorColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                validator: _model.textController6Validator
+                                    .asValidator(context),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    letterSpacing: 0.0,
-                                  ),
-                              maxLines: null,
-                              minLines: 5,
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              validator: _model.textController6Validator
-                                  .asValidator(context),
                             ),
                           ),
-                          SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            child: TextFormField(
-                              controller: _model.textController7,
-                              focusNode: _model.textFieldFocusNode7,
-                              autofocus: false,
-                              readOnly: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelText: 'Country',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
+                          AuthUserStreamWidget(
+                            builder: (context) => SizedBox(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              child: TextFormField(
+                                controller: _model.textController7,
+                                focusNode: _model.textFieldFocusNode7,
+                                autofocus: false,
+                                readOnly: true,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelText: 'Country',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintText: 'not set',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                cursorColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                validator: _model.textController7Validator
+                                    .asValidator(context),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    letterSpacing: 0.0,
-                                  ),
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              validator: _model.textController7Validator
-                                  .asValidator(context),
                             ),
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              FlutterFlowIconButton(
-                                borderColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                borderRadius: 8.0,
-                                borderWidth: 2.0,
-                                buttonSize: 40.0,
-                                fillColor: FlutterFlowTheme.of(context).primary,
-                                icon: FaIcon(
-                                  FontAwesomeIcons.instagram,
-                                  color: FlutterFlowTheme.of(context).info,
-                                  size: 24.0,
+                              if (currentUserDocument?.socialMedia.instagram !=
+                                      null &&
+                                  currentUserDocument?.socialMedia.instagram !=
+                                      '')
+                                AuthUserStreamWidget(
+                                  builder: (context) => FlutterFlowIconButton(
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderRadius: 8.0,
+                                    borderWidth: 2.0,
+                                    buttonSize: 40.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.instagram,
+                                      color: FlutterFlowTheme.of(context).info,
+                                      size: 24.0,
+                                    ),
+                                    onPressed: () async {
+                                      await launchURL(currentUserDocument!
+                                          .socialMedia.instagram);
+                                    },
+                                  ),
                                 ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
-                              FlutterFlowIconButton(
-                                borderColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                borderRadius: 8.0,
-                                borderWidth: 2.0,
-                                buttonSize: 40.0,
-                                fillColor: FlutterFlowTheme.of(context).primary,
-                                icon: FaIcon(
-                                  FontAwesomeIcons.instagram,
-                                  color: FlutterFlowTheme.of(context).info,
-                                  size: 24.0,
+                              if (currentUserDocument?.socialMedia.linkedIn !=
+                                      null &&
+                                  currentUserDocument?.socialMedia.linkedIn !=
+                                      '')
+                                AuthUserStreamWidget(
+                                  builder: (context) => FlutterFlowIconButton(
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderRadius: 8.0,
+                                    borderWidth: 2.0,
+                                    buttonSize: 40.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.linkedin,
+                                      color: FlutterFlowTheme.of(context).info,
+                                      size: 24.0,
+                                    ),
+                                    onPressed: () async {
+                                      await launchURL(currentUserDocument!
+                                          .socialMedia.linkedIn);
+                                    },
+                                  ),
                                 ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
+                              if (currentUserDocument?.socialMedia.facebook !=
+                                      null &&
+                                  currentUserDocument?.socialMedia.facebook !=
+                                      '')
+                                AuthUserStreamWidget(
+                                  builder: (context) => FlutterFlowIconButton(
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderRadius: 8.0,
+                                    borderWidth: 2.0,
+                                    buttonSize: 40.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.facebookF,
+                                      color: FlutterFlowTheme.of(context).info,
+                                      size: 20.0,
+                                    ),
+                                    onPressed: () async {
+                                      await launchURL(currentUserDocument!
+                                          .socialMedia.facebook);
+                                    },
+                                  ),
+                                ),
+                              if (currentUserDocument?.socialMedia.youTube !=
+                                      null &&
+                                  currentUserDocument?.socialMedia.youTube !=
+                                      '')
+                                AuthUserStreamWidget(
+                                  builder: (context) => FlutterFlowIconButton(
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderRadius: 8.0,
+                                    borderWidth: 2.0,
+                                    buttonSize: 40.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.youtube,
+                                      color: FlutterFlowTheme.of(context).info,
+                                      size: 20.0,
+                                    ),
+                                    onPressed: () async {
+                                      await launchURL(currentUserDocument!
+                                          .socialMedia.youTube);
+                                    },
+                                  ),
+                                ),
+                            ].divide(const SizedBox(width: 10.0)),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              if (currentUserDocument?.socialMedia.twitter !=
+                                      null &&
+                                  currentUserDocument?.socialMedia.twitter !=
+                                      '')
+                                AuthUserStreamWidget(
+                                  builder: (context) => FlutterFlowIconButton(
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderRadius: 8.0,
+                                    borderWidth: 2.0,
+                                    buttonSize: 40.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.twitter,
+                                      color: FlutterFlowTheme.of(context).info,
+                                      size: 20.0,
+                                    ),
+                                    onPressed: () async {
+                                      await launchURL(currentUserDocument!
+                                          .socialMedia.twitter);
+                                    },
+                                  ),
+                                ),
+                              if (currentUserDocument?.socialMedia.tikTok !=
+                                      null &&
+                                  currentUserDocument?.socialMedia.tikTok !=
+                                      '')
+                                AuthUserStreamWidget(
+                                  builder: (context) => FlutterFlowIconButton(
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderRadius: 8.0,
+                                    borderWidth: 2.0,
+                                    buttonSize: 40.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.tiktok,
+                                      color: FlutterFlowTheme.of(context).info,
+                                      size: 20.0,
+                                    ),
+                                    onPressed: () async {
+                                      await launchURL(currentUserDocument!
+                                          .socialMedia.tikTok);
+                                    },
+                                  ),
+                                ),
                             ].divide(const SizedBox(width: 10.0)),
                           ),
                         ].divide(const SizedBox(height: 20.0)),
@@ -1132,7 +1262,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Inter',
                                 color: Colors.white,
                                 letterSpacing: 0.0,
                               ),
