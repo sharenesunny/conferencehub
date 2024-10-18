@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/comp/earn_points/earn_points_widget.dart';
 import '/components/menu_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -296,7 +295,7 @@ class _ConRewardsWidgetState extends State<ConRewardsWidget> {
                       formatNumber(
                         valueOrDefault(currentUserDocument?.rewardPoints, 0),
                         formatType: FormatType.decimal,
-                        decimalType: DecimalType.periodDecimal,
+                        decimalType: DecimalType.automatic,
                       ),
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -323,73 +322,44 @@ class _ConRewardsWidgetState extends State<ConRewardsWidget> {
                   ),
                 ].divide(const SizedBox(height: 5.0)),
               ),
-              FFButtonWidget(
-                onPressed: () async {
-                  context.pushNamed(
-                    'rewardsRanks',
-                    extra: <String, dynamic>{
-                      kTransitionInfoKey: const TransitionInfo(
-                        hasTransition: true,
-                        transitionType: PageTransitionType.bottomToTop,
-                      ),
-                    },
-                  );
-                },
-                text: 'View Leaderboard',
-                options: FFButtonOptions(
-                  width: MediaQuery.sizeOf(context).width * 0.7,
-                  height: 50.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  iconPadding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Inter',
-                        color: Colors.white,
-                        letterSpacing: 0.0,
-                      ),
-                  elevation: 0.0,
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
+              Container(
+                constraints: const BoxConstraints(
+                  maxWidth: 500.0,
                 ),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  await showModalBottomSheet(
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    useSafeArea: true,
-                    context: context,
-                    builder: (context) {
-                      return GestureDetector(
-                        onTap: () => FocusScope.of(context).unfocus(),
-                        child: Padding(
-                          padding: MediaQuery.viewInsetsOf(context),
-                          child: SizedBox(
-                            height: MediaQuery.sizeOf(context).height * 0.9,
-                            child: const EarnPointsWidget(),
-                          ),
+                decoration: const BoxDecoration(),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    context.pushNamed(
+                      'rewardsRanks',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.bottomToTop,
                         ),
-                      );
-                    },
-                  ).then((value) => safeSetState(() {}));
-                },
-                child: Text(
-                  'How to earn points',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Inter',
-                        color: FlutterFlowTheme.of(context).secondary,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                      ),
+                      },
+                    );
+                  },
+                  text: 'View Leaderboard',
+                  options: FFButtonOptions(
+                    width: MediaQuery.sizeOf(context).width * 0.7,
+                    height: 50.0,
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primary,
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Inter',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                        ),
+                    elevation: 0.0,
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
             ].divide(const SizedBox(height: 40.0)),

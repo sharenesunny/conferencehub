@@ -66,7 +66,7 @@ android {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 }
@@ -76,9 +76,5 @@ flutter {
 }
 
 dependencies {
-    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10"
-      implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10"
 }
-
-
-    

@@ -45,6 +45,11 @@ class QuestionAnswersRecord extends FirestoreRecord {
   DateTime? get timestamp => _timestamp;
   bool hasTimestamp() => _timestamp != null;
 
+  // "presentationId" field.
+  String? _presentationId;
+  String get presentationId => _presentationId ?? '';
+  bool hasPresentationId() => _presentationId != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -54,6 +59,7 @@ class QuestionAnswersRecord extends FirestoreRecord {
     _votedBy = getDataList(snapshotData['votedBy']);
     _question = snapshotData['question'] as String?;
     _timestamp = snapshotData['timestamp'] as DateTime?;
+    _presentationId = snapshotData['presentationId'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -101,6 +107,7 @@ Map<String, dynamic> createQuestionAnswersRecordData({
   int? votes,
   String? question,
   DateTime? timestamp,
+  String? presentationId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -109,6 +116,7 @@ Map<String, dynamic> createQuestionAnswersRecordData({
       'votes': votes,
       'question': question,
       'timestamp': timestamp,
+      'presentationId': presentationId,
     }.withoutNulls,
   );
 
@@ -127,7 +135,8 @@ class QuestionAnswersRecordDocumentEquality
         e1?.votes == e2?.votes &&
         listEquality.equals(e1?.votedBy, e2?.votedBy) &&
         e1?.question == e2?.question &&
-        e1?.timestamp == e2?.timestamp;
+        e1?.timestamp == e2?.timestamp &&
+        e1?.presentationId == e2?.presentationId;
   }
 
   @override
@@ -137,7 +146,8 @@ class QuestionAnswersRecordDocumentEquality
         e?.votes,
         e?.votedBy,
         e?.question,
-        e?.timestamp
+        e?.timestamp,
+        e?.presentationId
       ]);
 
   @override

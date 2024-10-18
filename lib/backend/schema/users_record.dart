@@ -90,6 +90,16 @@ class UsersRecord extends FirestoreRecord {
   SocialMediaStruct get socialMedia => _socialMedia ?? SocialMediaStruct();
   bool hasSocialMedia() => _socialMedia != null;
 
+  // "defaultImg" field.
+  String? _defaultImg;
+  String get defaultImg => _defaultImg ?? '';
+  bool hasDefaultImg() => _defaultImg != null;
+
+  // "dImgactive" field.
+  bool? _dImgactive;
+  bool get dImgactive => _dImgactive ?? false;
+  bool hasDImgactive() => _dImgactive != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -106,6 +116,8 @@ class UsersRecord extends FirestoreRecord {
     _country = snapshotData['country'] as String?;
     _company = snapshotData['company'] as String?;
     _socialMedia = SocialMediaStruct.maybeFromMap(snapshotData['socialMedia']);
+    _defaultImg = snapshotData['defaultImg'] as String?;
+    _dImgactive = snapshotData['dImgactive'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -157,6 +169,8 @@ Map<String, dynamic> createUsersRecordData({
   String? country,
   String? company,
   SocialMediaStruct? socialMedia,
+  String? defaultImg,
+  bool? dImgactive,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -175,6 +189,8 @@ Map<String, dynamic> createUsersRecordData({
       'country': country,
       'company': company,
       'socialMedia': SocialMediaStruct().toMap(),
+      'defaultImg': defaultImg,
+      'dImgactive': dImgactive,
     }.withoutNulls,
   );
 
@@ -203,7 +219,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.bio == e2?.bio &&
         e1?.country == e2?.country &&
         e1?.company == e2?.company &&
-        e1?.socialMedia == e2?.socialMedia;
+        e1?.socialMedia == e2?.socialMedia &&
+        e1?.defaultImg == e2?.defaultImg &&
+        e1?.dImgactive == e2?.dImgactive;
   }
 
   @override
@@ -222,7 +240,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.bio,
         e?.country,
         e?.company,
-        e?.socialMedia
+        e?.socialMedia,
+        e?.defaultImg,
+        e?.dImgactive
       ]);
 
   @override

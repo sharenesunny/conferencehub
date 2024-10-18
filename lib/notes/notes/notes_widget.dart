@@ -71,426 +71,437 @@ class _NotesWidgetState extends State<NotesWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Container(
-            width: MediaQuery.sizeOf(context).width * 1.0,
-            decoration: const BoxDecoration(),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 0.95,
-                    height: 70.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).tertiary,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset(
-                          'assets/images/Artboard_8_copy@2x.png',
-                        ).image,
-                      ),
-                      borderRadius: BorderRadius.circular(15.0),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  scaffoldKey.currentState!.openDrawer();
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(0.0),
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(
-                                      sigmaX: 7.0,
-                                      sigmaY: 2.0,
-                                    ),
-                                    child: AnimatedContainer(
-                                      duration: const Duration(milliseconds: 200),
-                                      curve: Curves.easeInOut,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xA7E9E9E9),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        border: Border.all(
-                                          color: const Color(0xB3E9E9E9),
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 8.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Icon(
-                                              Icons.dashboard_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 24.0,
-                                            ),
-                                          ].divide(const SizedBox(width: 4.0)),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                'Notes',
-                                textAlign: TextAlign.start,
-                                style: FlutterFlowTheme.of(context)
-                                    .displayMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      fontSize: 14.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 0.95,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: StreamBuilder<List<NotesRecord>>(
-                      stream: queryNotesRecord(
-                        queryBuilder: (notesRecord) => notesRecord.where(
-                          'uID',
-                          isEqualTo: currentUserUid,
+          child: Align(
+            alignment: const AlignmentDirectional(0.0, -1.0),
+            child: Container(
+              width: MediaQuery.sizeOf(context).width * 1.0,
+              constraints: const BoxConstraints(
+                maxWidth: 900.0,
+              ),
+              decoration: const BoxDecoration(),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 0.95,
+                      height: 70.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).tertiary,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: Image.asset(
+                            'assets/images/Artboard_8_copy@2x.png',
+                          ).image,
+                        ),
+                        borderRadius: BorderRadius.circular(15.0),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          width: 2.0,
                         ),
                       ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return const LoadingOffwhiteWidget();
-                        }
-                        List<NotesRecord> staggeredViewNotesRecordList =
-                            snapshot.data!;
-                        if (staggeredViewNotesRecordList.isEmpty) {
-                          return const EmptyStateNotesWidget();
-                        }
-
-                        return MasonryGridView.builder(
-                          gridDelegate:
-                              const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                          ),
-                          crossAxisSpacing: 10.0,
-                          mainAxisSpacing: 10.0,
-                          itemCount: staggeredViewNotesRecordList.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, staggeredViewIndex) {
-                            final staggeredViewNotesRecord =
-                                staggeredViewNotesRecordList[
-                                    staggeredViewIndex];
-                            return StreamBuilder<NotesRecord>(
-                              stream: NotesRecord.getDocument(
-                                  staggeredViewNotesRecord.reference),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 10.0,
-                                      height: 10.0,
-                                      child: SpinKitThreeBounce(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        size: 10.0,
-                                      ),
-                                    ),
-                                  );
-                                }
-
-                                final containerNotesRecord = snapshot.data!;
-
-                                return InkWell(
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    context.pushNamed(
-                                      'viewNote',
-                                      queryParameters: {
-                                        'viewNote': serializeParam(
-                                          containerNotesRecord.reference,
-                                          ParamType.DocumentReference,
-                                        ),
-                                      }.withoutNulls,
-                                    );
+                                    scaffoldKey.currentState!.openDrawer();
                                   },
-                                  onLongPress: () async {
-                                    var confirmDialogResponse =
-                                        await showDialog<bool>(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title: const Text('Deleting Note'),
-                                                  content: const Text(
-                                                      'Are you sure you want to delete this note? This action cannot be undone.'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              false),
-                                                      child: const Text('Cancel'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              true),
-                                                      child: const Text('Yes'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            ) ??
-                                            false;
-                                    if (confirmDialogResponse) {
-                                      await containerNotesRecord.reference
-                                          .delete();
-                                      ScaffoldMessenger.of(context)
-                                          .clearSnackBars();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Note Deleted!',
-                                            style: TextStyle(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(0.0),
+                                    child: BackdropFilter(
+                                      filter: ImageFilter.blur(
+                                        sigmaX: 7.0,
+                                        sigmaY: 2.0,
+                                      ),
+                                      child: AnimatedContainer(
+                                        duration: const Duration(milliseconds: 200),
+                                        curve: Curves.easeInOut,
+                                        height: 40.0,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xA7E9E9E9),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                          border: Border.all(
+                                            color: const Color(0xB3E9E9E9),
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 0.0, 8.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Icon(
+                                                Icons.dashboard_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 24.0,
+                                              ),
+                                            ].divide(const SizedBox(width: 4.0)),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Notes',
+                                  textAlign: TextAlign.start,
+                                  style: FlutterFlowTheme.of(context)
+                                      .displayMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 0.95,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: StreamBuilder<List<NotesRecord>>(
+                        stream: queryNotesRecord(
+                          queryBuilder: (notesRecord) => notesRecord.where(
+                            'uID',
+                            isEqualTo: currentUserUid,
+                          ),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return const LoadingOffwhiteWidget();
+                          }
+                          List<NotesRecord> staggeredViewNotesRecordList =
+                              snapshot.data!;
+                          if (staggeredViewNotesRecordList.isEmpty) {
+                            return const EmptyStateNotesWidget();
+                          }
+
+                          return MasonryGridView.builder(
+                            gridDelegate:
+                                const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                            ),
+                            crossAxisSpacing: 10.0,
+                            mainAxisSpacing: 10.0,
+                            itemCount: staggeredViewNotesRecordList.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, staggeredViewIndex) {
+                              final staggeredViewNotesRecord =
+                                  staggeredViewNotesRecordList[
+                                      staggeredViewIndex];
+                              return StreamBuilder<NotesRecord>(
+                                stream: NotesRecord.getDocument(
+                                    staggeredViewNotesRecord.reference),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 10.0,
+                                        height: 10.0,
+                                        child: SpinKitThreeBounce(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          size: 10.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  final containerNotesRecord = snapshot.data!;
+
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                        'viewNote',
+                                        queryParameters: {
+                                          'viewNote': serializeParam(
+                                            containerNotesRecord.reference,
+                                            ParamType.DocumentReference,
+                                          ),
+                                        }.withoutNulls,
+                                      );
+                                    },
+                                    onLongPress: () async {
+                                      var confirmDialogResponse =
+                                          await showDialog<bool>(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title:
+                                                        const Text('Deleting Note'),
+                                                    content: const Text(
+                                                        'Are you sure you want to delete this note? This action cannot be undone.'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: const Text('Cancel'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child: const Text('Yes'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              ) ??
+                                              false;
+                                      if (confirmDialogResponse) {
+                                        await containerNotesRecord.reference
+                                            .delete();
+                                        ScaffoldMessenger.of(context)
+                                            .clearSnackBars();
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Note Deleted!',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                      } else {
+                                        return;
+                                      }
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.46,
+                                        constraints: const BoxConstraints(
+                                          minHeight: 100.0,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFFFF3CE),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  1.0,
+                                              height: 20.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .warning,
+                                              ),
+                                            ),
+                                            Divider(
+                                              height: 1.0,
+                                              thickness: 2.0,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                             ),
-                                          ),
-                                          duration:
-                                              const Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                    } else {
-                                      return;
-                                    }
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    child: Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.46,
-                                      constraints: const BoxConstraints(
-                                        minHeight: 100.0,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFFFFF3CE),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          width: 2.0,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                1.0,
-                                            height: 20.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .warning,
-                                            ),
-                                          ),
-                                          Divider(
-                                            height: 1.0,
-                                            thickness: 2.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    14.0, 14.0, 14.0, 10.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      14.0, 14.0, 14.0, 10.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            containerNotesRecord
+                                                                .noteTitle,
+                                                            maxLines: 2,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  lineHeight:
+                                                                      1.2,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            containerNotesRecord
+                                                                .noteContent,
+                                                            maxLines: 5,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      if (containerNotesRecord
+                                                              .wasUpdated ==
+                                                          false)
                                                         Text(
-                                                          containerNotesRecord
-                                                              .noteTitle,
-                                                          maxLines: 2,
+                                                          'Created ${dateTimeFormat(
+                                                            "relative",
+                                                            containerNotesRecord
+                                                                .creationDate,
+                                                            locale: FFLocalizations.of(
+                                                                        context)
+                                                                    .languageShortCode ??
+                                                                FFLocalizations.of(
+                                                                        context)
+                                                                    .languageCode,
+                                                          )}',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Inter',
-                                                                fontSize: 14.0,
+                                                                color: const Color(
+                                                                    0xFFC7B187),
+                                                                fontSize: 12.0,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                lineHeight: 1.2,
                                                               ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
+                                                      if (containerNotesRecord
+                                                              .wasUpdated ==
+                                                          true)
                                                         Text(
-                                                          containerNotesRecord
-                                                              .noteContent,
-                                                          maxLines: 5,
+                                                          'Updated ${dateTimeFormat(
+                                                            "relative",
+                                                            containerNotesRecord
+                                                                .updatedDate,
+                                                            locale: FFLocalizations.of(
+                                                                        context)
+                                                                    .languageShortCode ??
+                                                                FFLocalizations.of(
+                                                                        context)
+                                                                    .languageCode,
+                                                          )}',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Inter',
+                                                                color: const Color(
+                                                                    0xFFC7B187),
+                                                                fontSize: 12.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    if (containerNotesRecord
-                                                            .wasUpdated ==
-                                                        false)
-                                                      Text(
-                                                        'Created ${dateTimeFormat(
-                                                          "relative",
-                                                          containerNotesRecord
-                                                              .creationDate,
-                                                          locale: FFLocalizations
-                                                                      .of(
-                                                                          context)
-                                                                  .languageShortCode ??
-                                                              FFLocalizations.of(
-                                                                      context)
-                                                                  .languageCode,
-                                                        )}',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              color: const Color(
-                                                                  0xFFC7B187),
-                                                              fontSize: 12.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                            ),
-                                                      ),
-                                                    if (containerNotesRecord
-                                                            .wasUpdated ==
-                                                        true)
-                                                      Text(
-                                                        'Updated ${dateTimeFormat(
-                                                          "relative",
-                                                          containerNotesRecord
-                                                              .updatedDate,
-                                                          locale: FFLocalizations
-                                                                      .of(
-                                                                          context)
-                                                                  .languageShortCode ??
-                                                              FFLocalizations.of(
-                                                                      context)
-                                                                  .languageCode,
-                                                        )}',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              color: const Color(
-                                                                  0xFFC7B187),
-                                                              fontSize: 12.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                            ),
-                                                      ),
-                                                  ].divide(
-                                                      const SizedBox(height: 10.0)),
-                                                ),
-                                              ],
+                                                    ].divide(
+                                                        const SizedBox(height: 10.0)),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        );
-                      },
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ]
-                    .divide(const SizedBox(height: 8.0))
-                    .addToStart(const SizedBox(height: 25.0))
-                    .addToEnd(const SizedBox(height: 50.0)),
+                  ]
+                      .divide(const SizedBox(height: 8.0))
+                      .addToStart(const SizedBox(height: 25.0))
+                      .addToEnd(const SizedBox(height: 50.0)),
+                ),
               ),
             ),
           ),

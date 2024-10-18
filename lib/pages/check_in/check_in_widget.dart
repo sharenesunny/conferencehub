@@ -177,6 +177,9 @@ class _CheckInWidgetState extends State<CheckInWidget> {
                         Container(
                           width: MediaQuery.sizeOf(context).width * 0.85,
                           height: 277.0,
+                          constraints: const BoxConstraints(
+                            maxWidth: 500.0,
+                          ),
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).tertiary,
                             borderRadius: BorderRadius.circular(15.0),

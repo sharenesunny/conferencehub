@@ -88,124 +88,128 @@ class _PresentationActiveWidgetState extends State<PresentationActiveWidget>
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: SafeArea(
               top: true,
-              child: Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                decoration: const BoxDecoration(),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: MediaQuery.sizeOf(context).width * 0.95,
-                        decoration: const BoxDecoration(),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              5.0, 0.0, 8.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              FlutterFlowIconButton(
-                                borderColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                borderRadius: 8.0,
-                                borderWidth: 2.0,
-                                buttonSize: 40.0,
-                                icon: Icon(
-                                  Icons.arrow_back,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 24.0,
-                                ),
-                                onPressed: () async {
-                                  context.safePop();
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.sizeOf(context).width * 0.95,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondary,
-                          borderRadius: BorderRadius.circular(15.0),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            width: 2.0,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: MediaQuery.sizeOf(context).width * 0.7,
-                                decoration: const BoxDecoration(),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      presentationActiveScheduleRecord.name,
-                                      maxLines: 2,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontSize: 14.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
-                                            lineHeight: 1.2,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              FlutterFlowIconButton(
-                                borderColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                borderRadius: 5.0,
-                                borderWidth: 2.0,
-                                buttonSize: 35.0,
-                                icon: Icon(
-                                  Icons.arrow_outward_rounded,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 20.0,
-                                ),
-                                onPressed: () async {
-                                  context.pushNamed(
-                                    'presentationInfo',
-                                    queryParameters: {
-                                      'activeInfo': serializeParam(
-                                        presentationActiveScheduleRecord
-                                            .reference,
-                                        ParamType.DocumentReference,
-                                      ),
-                                    }.withoutNulls,
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.75,
+              child: Align(
+                alignment: const AlignmentDirectional(0.0, -1.0),
+                child: Container(
+                  width: MediaQuery.sizeOf(context).width * 1.0,
+                  constraints: const BoxConstraints(
+                    maxWidth: 900.0,
+                  ),
+                  decoration: const BoxDecoration(),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 0.95,
+                          decoration: const BoxDecoration(),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 10.0, 0.0),
+                                5.0, 0.0, 8.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                FlutterFlowIconButton(
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  borderRadius: 8.0,
+                                  borderWidth: 2.0,
+                                  buttonSize: 40.0,
+                                  icon: Icon(
+                                    Icons.arrow_back,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 24.0,
+                                  ),
+                                  onPressed: () async {
+                                    context.safePop();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 0.95,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).secondary,
+                            borderRadius: BorderRadius.circular(15.0),
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              width: 2.0,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: MediaQuery.sizeOf(context).width * 0.7,
+                                  decoration: const BoxDecoration(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        presentationActiveScheduleRecord.name,
+                                        maxLines: 2,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                              lineHeight: 1.2,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                FlutterFlowIconButton(
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  borderRadius: 5.0,
+                                  borderWidth: 2.0,
+                                  buttonSize: 35.0,
+                                  icon: Icon(
+                                    Icons.arrow_outward_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 20.0,
+                                  ),
+                                  onPressed: () async {
+                                    context.pushNamed(
+                                      'presentationInfo',
+                                      queryParameters: {
+                                        'activeInfo': serializeParam(
+                                          presentationActiveScheduleRecord
+                                              .reference,
+                                          ParamType.DocumentReference,
+                                        ),
+                                      }.withoutNulls,
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.75,
                             child: Column(
                               children: [
                                 Align(
@@ -537,6 +541,9 @@ class _PresentationActiveWidgetState extends State<PresentationActiveWidget>
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
                                                   children: [
@@ -1043,7 +1050,8 @@ class _PresentationActiveWidgetState extends State<PresentationActiveWidget>
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                    MainAxisAlignment
+                                                        .spaceAround,
                                                 children: [
                                                   Padding(
                                                     padding:
@@ -1216,7 +1224,14 @@ class _PresentationActiveWidgetState extends State<PresentationActiveWidget>
                                                             .text,
                                                         timestamp:
                                                             getCurrentTimestamp,
+                                                        presentationId:
+                                                            presentationActiveScheduleRecord
+                                                                .presentationId,
                                                       ));
+                                                      safeSetState(() {
+                                                        _model.textController2
+                                                            ?.clear();
+                                                      });
                                                     },
                                                   ),
                                                 ],
@@ -1232,11 +1247,11 @@ class _PresentationActiveWidgetState extends State<PresentationActiveWidget>
                             ),
                           ),
                         ),
-                      ),
-                    ]
-                        .divide(const SizedBox(height: 8.0))
-                        .addToStart(const SizedBox(height: 25.0))
-                        .addToEnd(const SizedBox(height: 50.0)),
+                      ]
+                          .divide(const SizedBox(height: 8.0))
+                          .addToStart(const SizedBox(height: 25.0))
+                          .addToEnd(const SizedBox(height: 50.0)),
+                    ),
                   ),
                 ),
               ),

@@ -76,6 +76,9 @@ class _LoginWidgetState extends State<LoginWidget> {
               Container(
                 width: MediaQuery.sizeOf(context).width * 0.85,
                 height: 337.0,
+                constraints: const BoxConstraints(
+                  maxWidth: 600.0,
+                ),
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).tertiary,
                   borderRadius: BorderRadius.circular(15.0),
@@ -347,17 +350,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   }
 
                                   context.goNamedAuth(
-                                    'homePage',
-                                    context.mounted,
-                                    extra: <String, dynamic>{
-                                      kTransitionInfoKey: const TransitionInfo(
-                                        hasTransition: true,
-                                        transitionType:
-                                            PageTransitionType.scale,
-                                        alignment: Alignment.bottomCenter,
-                                      ),
-                                    },
-                                  );
+                                      'homePage', context.mounted);
                                 } else {
                                   if ((_model.emailTextController.text !=
                                               '') &&

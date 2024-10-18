@@ -41,20 +41,6 @@
           "order": "ASCENDING"
         }
       ]
-    },
-    {
-      "collectionGroup": "schedule",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "isProgram",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "time",
-          "order": "ASCENDING"
-        }
-      ]
     }
   ]
 }

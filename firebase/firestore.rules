@@ -11,22 +11,22 @@ service cloud.firestore {
     match /conMap/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if false;
+      allow write: if true;
       allow delete: if false;
     }
 
     match /notice/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if false;
-      allow delete: if false;
+      allow write: if true;
+      allow delete: if true;
     }
 
     match /profile/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
-      allow delete: if false;
+      allow delete: if true;
     }
 
     match /schedule/{document} {
@@ -39,22 +39,22 @@ service cloud.firestore {
     match /conQuizzes/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if false;
-      allow delete: if false;
+      allow write: if true;
+      allow delete: if true;
     }
 
     match /speaker/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if false;
-      allow delete: if false;
+      allow write: if true;
+      allow delete: if true;
     }
 
     match /sponsor/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if false;
-      allow delete: if false;
+      allow write: if true;
+      allow delete: if true;
     }
 
     match /earnPoints/{document} {
@@ -65,31 +65,31 @@ service cloud.firestore {
     }
 
     match /users/{document} {
-      allow create: if request.auth.uid == document;
+      allow create: if true;
       allow read: if true;
-      allow write: if request.auth.uid == document;
-      allow delete: if request.auth.uid == document;
+      allow write: if true;
+      allow delete: if true;
     }
 
     match /aboutBarbados/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
-      allow delete: if false;
+      allow delete: if true;
     }
 
     match /checkedIn/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
-      allow delete: if false;
+      allow delete: if true;
     }
 
     match /schedule/{parent}/questionAnswers/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
-      allow delete: if false;
+      allow delete: if true;
     }
 
     match /{path=**}/questionAnswers/{document} {
@@ -100,7 +100,7 @@ service cloud.firestore {
     match /schedule/{parent}/polls/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if false;
+      allow write: if true;
       allow delete: if false;
     }
 

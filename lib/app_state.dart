@@ -61,16 +61,6 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _votedQA = prefs.getStringList('ff_votedQA') ?? _votedQA;
     });
-    _safeInit(() {
-      _lastCacheTime = prefs.containsKey('ff_lastCacheTime')
-          ? DateTime.fromMillisecondsSinceEpoch(
-              prefs.getInt('ff_lastCacheTime')!)
-          : _lastCacheTime;
-    });
-    _safeInit(() {
-      _isCacheOverride =
-          prefs.getBool('ff_isCacheOverride') ?? _isCacheOverride;
-    });
   }
 
   void update(VoidCallback callback) {
@@ -337,22 +327,6 @@ class FFAppState extends ChangeNotifier {
   bool get isConnected => _isConnected;
   set isConnected(bool value) {
     _isConnected = value;
-  }
-
-  DateTime? _lastCacheTime;
-  DateTime? get lastCacheTime => _lastCacheTime;
-  set lastCacheTime(DateTime? value) {
-    _lastCacheTime = value;
-    value != null
-        ? prefs.setInt('ff_lastCacheTime', value.millisecondsSinceEpoch)
-        : prefs.remove('ff_lastCacheTime');
-  }
-
-  bool _isCacheOverride = false;
-  bool get isCacheOverride => _isCacheOverride;
-  set isCacheOverride(bool value) {
-    _isCacheOverride = value;
-    prefs.setBool('ff_isCacheOverride', value);
   }
 
   final _speakersHomeManager = StreamRequestManager<List<SpeakerRecord>>();
