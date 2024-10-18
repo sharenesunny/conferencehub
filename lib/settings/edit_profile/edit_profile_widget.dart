@@ -213,9 +213,17 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       tikTok: _model.textController13.text,
                                       clearUnsetFields: false,
                                     ),
-                                    connectCode: random_data
-                                        .randomInteger(6, 6)
-                                        .toString(),
+                                    connectCode: valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.connectCode,
+                                                    '') ==
+                                                ''
+                                        ? random_data
+                                            .randomInteger(000000, 999999)
+                                            .toString()
+                                        : valueOrDefault(
+                                            currentUserDocument?.connectCode,
+                                            ''),
                                   ),
                                   ...mapToFirestore(
                                     {
